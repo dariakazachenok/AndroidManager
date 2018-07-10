@@ -27,7 +27,7 @@ namespace AndroidManager.Web.Controllers
         }
 
         [HttpPost]
-        public ActionResult Create(JobBindModel jobBindModel)
+        public ActionResult Create([FromBody] JobBindModel jobBindModel)
         {
             if (!ModelState.IsValid)
                 return BadRequest();
@@ -60,7 +60,7 @@ namespace AndroidManager.Web.Controllers
 
             return Ok();
         }
-            
+
         [HttpDelete("{id}")]
         public ActionResult Delete(int id)
         {
@@ -68,5 +68,5 @@ namespace AndroidManager.Web.Controllers
 
             return Ok();
         }
-    }    
+    }
 }

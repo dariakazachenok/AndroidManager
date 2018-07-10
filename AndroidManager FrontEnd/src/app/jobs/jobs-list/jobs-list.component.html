@@ -1,0 +1,20 @@
+<p>
+  jobs-list 
+</p>
+
+<table> 
+    <tr>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Complexity level</th>
+    </tr>
+
+    <tr *ngFor="let job of jobs">
+        <td>{{job.name}}</td>
+        <td>{{job.description}}</td>
+        <td>{{job.complexityLevel}}</td>
+        <td><button (click)="editJob(job.id)">Edit</button></td>
+    </tr>
+</table>        
+
+<div><a routerLink="/jobs/create">Create job</a></div>

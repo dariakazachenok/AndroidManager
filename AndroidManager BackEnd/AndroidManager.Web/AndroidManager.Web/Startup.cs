@@ -1,4 +1,6 @@
 ﻿using AndroidManager.Web.Automapper;
+using AutoMapper;
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -30,14 +32,16 @@ namespace AndroidManager.Web
 
             services.AddCors();
 
+            services.AddAutoMapper();
             // add AutoMapper profiles
-            var config = new AutoMapper.MapperConfiguration(cfg =>
+            var config = new MapperConfiguration(cfg =>
             {
                 cfg.AddProfile(new JobProfile());
                 cfg.AddProfile(new AndroidProfile());
             });
 
-            services.AddMvc();
+            services.AddMvc()
+                .AddFluentValidation();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -51,7 +55,10 @@ namespace AndroidManager.Web
             app.UseDefaultFiles();
             app.UseStaticFiles();
 
-            app.UseCors(builder => builder.WithOrigins("http://localhost:4200"));
+            app.UseCors(builder => builder.WithOrigins("*")
+                    .AllowAnyOrigin()
+                    .AllowAnyHeader()
+                    .AllowAnyMethod());
 
             app.UseMvc();
         }

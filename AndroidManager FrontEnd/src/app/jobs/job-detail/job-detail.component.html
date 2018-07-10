@@ -1,0 +1,29 @@
+<p>
+  Create job
+</p>
+
+<form [formGroup]="jobForm" novalidate (ngSubmit)="submit()">
+    <div class="form-group">
+        <label>Name</label>
+        <input class="form-control" name="name" formControlName="name" />
+        
+        <div class="alert alert-danger"
+        *ngIf="jobForm.controls['name'].invalid && jobForm.controls['name'].touched">
+        name not specified
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label>Description</label>
+        <input class="form-control" name="description" formControlName="description" />
+     
+        <div class="alert alert-danger"
+        *ngIf="jobForm.controls['description'].invalid && jobForm.controls['description'].touched">
+         description not specified
+        </div>
+    </div>
+
+    <div class="form-group">
+       <button (click)="submitForm()" class="btn btn-success">Submit</button>
+    </div>
+</form>`

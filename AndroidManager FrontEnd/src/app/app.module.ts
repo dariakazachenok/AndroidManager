@@ -1,13 +1,26 @@
-import { NgModule }      from '@angular/core';
+import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule }   from '@angular/forms';
-import { AppComponent }   from './app.component';
- 
-import { HttpClientModule }   from '@angular/common/http';
- 
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+import { RouterModule, Routes } from '@angular/router';
+
+import { AppComponent } from './app.component';
+import { JobsListComponent } from './jobs/jobs-list/jobs-list.component';
+import { JobDetailComponent } from './jobs/job-detail/job-detail.component';
+import { HomeComponent } from './home/home.component';
+
+const routes: Routes = [
+    { path: '', component: HomeComponent },
+    { path: 'jobs', component: JobsListComponent },
+    { path: 'androids', component: JobsListComponent },
+    { path: 'jobs/create', component: JobDetailComponent },
+    { path: 'jobs/edit/:id', component: JobDetailComponent }
+];
+
 @NgModule({
-    imports:      [ BrowserModule, FormsModule, HttpClientModule],
-    declarations: [ AppComponent],
-    bootstrap:    [ AppComponent ]
+    imports: [BrowserModule, HttpClientModule, FormsModule, ReactiveFormsModule, RouterModule.forRoot(routes)],
+    declarations: [AppComponent, JobsListComponent, JobDetailComponent, HomeComponent],
+    bootstrap: [AppComponent]
+
 })
 export class AppModule { }
