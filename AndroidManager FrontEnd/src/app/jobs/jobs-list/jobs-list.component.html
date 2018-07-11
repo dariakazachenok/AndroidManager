@@ -1,20 +1,31 @@
-<p>
-  jobs-list 
-</p>
+<table>
+    <caption>Jobs</caption>
+    <tbody>
+        <tr>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Complexity level</th>
+            <th></th>
+            <th></th>
+        </tr>
 
-<table> 
-    <tr>
-        <th>Name</th>
-        <th>Description</th>
-        <th>Complexity level</th>
-    </tr>
+        <tr *ngFor="let job of jobs">
+            <td>{{job.name}}</td>
+            <td>{{job.description}}</td>
+            <td>Level {{job.complexityLevel}}</td>
+            <td>
+                <button (click)="editJob(job.id)">Edit</button>
+            </td>
+            <td>
+                <button (click)="deleteJob(job.id)">Delete</button>
+            </td>
+        </tr>
+    </tbody>
+</table>
 
-    <tr *ngFor="let job of jobs">
-        <td>{{job.name}}</td>
-        <td>{{job.description}}</td>
-        <td>{{job.complexityLevel}}</td>
-        <td><button (click)="editJob(job.id)">Edit</button></td>
-    </tr>
-</table>        
-
-<div><a routerLink="/jobs/create">Create job</a></div>
+<div class="link">
+    <a routerLink="/jobs/create">Create job</a>
+</div>
+<div class="link">
+    <a routerLink>Home</a>
+</div>

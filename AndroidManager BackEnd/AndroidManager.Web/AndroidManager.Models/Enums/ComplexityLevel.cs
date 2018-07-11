@@ -1,10 +1,9 @@
-﻿
-namespace AndroidManager.Models.Enums
+﻿namespace AndroidManager.Models.Enums
 {
     public enum ComplexityLevel
     {
-        Level_1 = 1,
-        Level_2 = 2,
-        Level_3 = 3
+        Level1 = 1,
+        Level2 = 2,
+        Level3 = 3
     }
 }
