@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
-import { HttpService } from "../../http.service";
 import { Router } from "@angular/router";
 
+import { HttpService } from "../../http.service";
 import { Job } from "../../models/job.model";
 
 @Component({
@@ -12,10 +12,10 @@ import { Job } from "../../models/job.model";
 export class JobsListComponent implements OnInit {
   jobs: Array<Job>;
 
-  constructor(private httpService: HttpService, private router: Router) { }
+  constructor(private httpService: HttpService, private router: Router) {}
 
   ngOnInit() {
-    this.httpService.getJobs().subscribe((jobs: any) => this.jobs = jobs);
+    this.httpService.getJobs().subscribe((jobs: any) => (this.jobs = jobs));
   }
 
   editJob(jobId: number) {
@@ -23,7 +23,7 @@ export class JobsListComponent implements OnInit {
   }
 
   deleteJob(jobId: number) {
-    if (confirm("Are you sure?")) {
+    if (confirm("Are you sure you want to delete the job?")) {
       this.httpService.deleteJob(jobId).subscribe(() => {
         this.jobs = this.jobs.filter(x => x.id !== jobId);
       });

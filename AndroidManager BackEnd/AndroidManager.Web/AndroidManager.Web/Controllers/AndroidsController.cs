@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.IO;
 using AndroidManager.WebApi;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
@@ -27,7 +28,7 @@ namespace AndroidManager.Web.Controllers
         }
 
         [HttpPost]
-        public ActionResult Create(AndroidBindModel androidBindModel)
+        public ActionResult Create([FromBody] AndroidBindModel androidBindModel)
         {
             if (!ModelState.IsValid)
                 return BadRequest();
@@ -48,7 +49,7 @@ namespace AndroidManager.Web.Controllers
         }
 
         [HttpPut("{id}")]
-        public ActionResult Update(int id, AndroidBindModel androidBindModel)
+        public ActionResult Update(int id,[FromBody] AndroidBindModel androidBindModel)
         {
             if (!ModelState.IsValid)
                 return BadRequest();

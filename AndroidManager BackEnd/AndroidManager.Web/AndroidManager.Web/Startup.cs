@@ -27,8 +27,11 @@ namespace AndroidManager.Web
              options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             // добавляем контекст DatabaseContext в качестве сервиса в приложение
-
             services.AddTransient<JobService, JobService>();
+
+            services.AddTransient<AndroidService, AndroidService>();
+
+            services.AddTransient<AssingTaskAndroidService, AssingTaskAndroidService>();
 
             services.AddCors();
 

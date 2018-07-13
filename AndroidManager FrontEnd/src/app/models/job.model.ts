@@ -1,6 +1,6 @@
 export interface Job {
     id: number;
-    name: string;
+    jobName: string;
     description: string;
     complexityLevel?: number;
   }

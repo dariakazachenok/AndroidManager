@@ -7,9 +7,9 @@ namespace AndroidManager.Web.Validators
     {
         public AndroidValidator()
         {
-            RuleFor(x => x.Name).NotEmpty();
-            RuleFor(x => x.Name).Length(5, 24);
-            RuleFor(x => x.Avatar).NotEmpty();
+            RuleFor(x => x.AndroidName).NotEmpty();
+            RuleFor(x => x.AndroidName).Length(5, 24);
+            //RuleFor(x => x.Avatar).NotEmpty();
         }
     }
 }

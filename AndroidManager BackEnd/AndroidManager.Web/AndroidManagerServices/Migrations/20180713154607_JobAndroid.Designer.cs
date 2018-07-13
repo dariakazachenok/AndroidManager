@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AndroidManagerServices.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20180710190511_Android")]
-    partial class Android
+    [Migration("20180713154607_JobAndroid")]
+    partial class JobAndroid
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -27,9 +27,15 @@ namespace AndroidManagerServices.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<byte[]>("Avatar");
+                    b.Property<string>("AndroidName");
 
-                    b.Property<string>("Name");
+                    b.Property<string>("AvatarImage");
+
+                    b.Property<int>("Reliability");
+
+                    b.Property<string>("Skills");
+
+                    b.Property<bool>("Status");
 
                     b.HasKey("Id");
 
@@ -46,7 +52,7 @@ namespace AndroidManagerServices.Migrations
 
                     b.Property<string>("Description");
 
-                    b.Property<string>("Name");
+                    b.Property<string>("JobName");
 
                     b.HasKey("Id");
 

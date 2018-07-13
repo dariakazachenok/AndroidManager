@@ -10,7 +10,7 @@
         </tr>
 
         <tr *ngFor="let job of jobs">
-            <td>{{job.name}}</td>
+            <td>{{job.jobName}}</td>
             <td>{{job.description}}</td>
             <td>Level {{job.complexityLevel}}</td>
             <td>
@@ -27,5 +27,5 @@
     <a routerLink="/jobs/create">Create job</a>
 </div>
 <div class="link">
-    <a routerLink>Home</a>
+    <a routerLink>Go back to main page</a>
 </div>

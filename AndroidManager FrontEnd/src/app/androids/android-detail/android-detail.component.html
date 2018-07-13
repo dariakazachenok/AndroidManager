@@ -1,0 +1,65 @@
+<p>
+    {{ (this.androidId ? 'Update android' :'Create android') }}
+</p>
+
+<form [formGroup]="androidForm">
+    <div class="details">
+        <label>Android name</label>
+        <input
+            class="form-control"
+            name="androidName"
+            formControlName="androidName"
+        >
+
+        <div
+            class="form-control"
+            *ngIf="androidForm.controls['androidName'].invalid && androidForm.controls['androidName'].touched"
+        >
+            name not specified
+        </div>
+    </div>
+
+    <div class="details">
+        <label>Avatar</label>
+
+        <input
+            class="form-control"
+            type="file"
+            (change)="onFileChange($event)"
+            name="avatarImage"
+           
+        >
+        <button
+            type="button"
+            class="form-control"
+            (click)="clearFile()"
+        >
+            clear file
+        </button>
+
+    </div>
+
+    <div class="details">
+        <label>Reliability</label>
+        <input
+            class="form-control"
+            type="text"
+            value="10"
+            name="reliability"
+            formControlName="reliability"
+        >
+    </div>
+
+    <div class="details">
+        <button
+            (click)="submitForm()"
+            class="btn btn-success"
+        >
+            {{ (this.androidId ? 'Update' :'Create') }}
+        </button>
+    </div>
+</form>
+
+<div class="link">
+    <a routerLink="/androids">Go back</a>
+</div>

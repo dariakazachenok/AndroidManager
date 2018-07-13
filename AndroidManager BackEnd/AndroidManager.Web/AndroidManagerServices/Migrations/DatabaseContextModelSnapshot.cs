@@ -25,9 +25,15 @@ namespace AndroidManagerServices.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<byte[]>("Avatar");
+                    b.Property<string>("AndroidName");
 
-                    b.Property<string>("Name");
+                    b.Property<string>("AvatarImage");
+
+                    b.Property<int>("Reliability");
+
+                    b.Property<string>("Skills");
+
+                    b.Property<bool>("Status");
 
                     b.HasKey("Id");
 
@@ -44,7 +50,7 @@ namespace AndroidManagerServices.Migrations
 
                     b.Property<string>("Description");
 
-                    b.Property<string>("Name");
+                    b.Property<string>("JobName");
 
                     b.HasKey("Id");
 

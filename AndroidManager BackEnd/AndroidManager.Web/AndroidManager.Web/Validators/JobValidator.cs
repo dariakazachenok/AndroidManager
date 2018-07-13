@@ -7,8 +7,8 @@ namespace AndroidManager.Web.Validators
     {
         public JobValidator()
         {
-           RuleFor(x => x.Name).NotEmpty();
-           RuleFor(x => x.Name).Length(2, 16); 
+           RuleFor(x => x.JobName).NotEmpty();
+           RuleFor(x => x.JobName).Length(2, 16); 
            RuleFor(x => x.Description).NotEmpty().MaximumLength(255);
         }
     }

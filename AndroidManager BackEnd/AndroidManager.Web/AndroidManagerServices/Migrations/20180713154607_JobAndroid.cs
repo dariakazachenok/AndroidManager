@@ -1,10 +1,9 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore.Metadata;
+﻿using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace AndroidManagerServices.Migrations
 {
-    public partial class Android : Migration
+    public partial class JobAndroid : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -14,8 +13,11 @@ namespace AndroidManagerServices.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Name = table.Column<string>(nullable: true),
-                    Avatar = table.Column<byte[]>(nullable: true)
+                    AndroidName = table.Column<string>(nullable: true),
+                    AvatarImage = table.Column<string>(nullable: true),
+                    Skills = table.Column<string>(nullable: true),
+                    Reliability = table.Column<int>(nullable: false),
+                    Status = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -28,7 +30,7 @@ namespace AndroidManagerServices.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Name = table.Column<string>(nullable: true),
+                    JobName = table.Column<string>(nullable: true),
                     Description = table.Column<string>(nullable: true),
                     ComplexityLevel = table.Column<int>(nullable: true)
                 },

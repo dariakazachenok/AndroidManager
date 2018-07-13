@@ -2,34 +2,61 @@
     {{ (this.jobId ? 'Update job' :'Create job') }}
 </p>
 
-<form [formGroup]="jobForm" novalidate (ngSubmit)="submit()">
-    <div class="form-group">
-        <label>Name</label>
-        <input class="form-control" name="name" formControlName="name" />
+<form [formGroup]="jobForm">
+    <div class="details">
+        <label>Job Name</label>
+        <input
+            class="form-control"
+            name="jobName"
+            formControlName="jobName"
+        >
 
-        <div class="alert alert-danger" *ngIf="jobForm.controls['name'].invalid && jobForm.controls['name'].touched">
+        <div
+            class="alert alert-danger"
+            *ngIf="jobForm.controls['jobName'].invalid && jobForm.controls['jobName'].touched"
+        >
             name not specified
         </div>
     </div>
 
-    <div class="form-group">
+    <div class="details">
         <label>Description</label>
-        <input class="form-control" name="description" formControlName="description" />
+        <input
+            class="form-control"
+            name="description"
+            formControlName="description"
+        >
 
-        <div class="alert alert-danger" *ngIf="jobForm.controls['description'].invalid && jobForm.controls['description'].touched">
+        <div
+            class="alert alert-danger"
+            *ngIf="jobForm.controls['description'].invalid && jobForm.controls['description'].touched"
+        >
             description not specified
         </div>
     </div>
 
-    <div class="form-group">
+    <div class="details">
         <select formControlName="complexitylevel">
-            <option *ngFor="let level of complexityLevels" [ngValue]="level">
+            <option
+                *ngFor="let level of complexityLevels"
+                name="level"
+                [ngValue]="level"
+            >
                 {{ level.name }}
             </option>
         </select>
     </div>
 
-    <div class="form-group">
-        <button (click)="submitForm()" class="btn btn-success"> {{ (this.jobId ? 'Update' :'Create') }}</button>
+    <div class="details">
+        <button
+            (click)="submitForm()"
+            class="btn btn-success"
+        >
+            {{ (this.jobId ? 'Update' :'Create') }}
+        </button>
     </div>
 </form>
+
+<div class="link">
+    <a routerLink="/jobs">Go back</a>
+</div>
