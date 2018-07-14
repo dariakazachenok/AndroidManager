@@ -40,6 +40,19 @@ namespace AndroidManagerServices.Migrations
                     b.ToTable("Androids");
                 });
 
+            modelBuilder.Entity("AndroidManager.Web.AndroidJob", b =>
+                {
+                    b.Property<int>("AndroidId");
+
+                    b.Property<int>("JobId");
+
+                    b.HasKey("AndroidId", "JobId");
+
+                    b.HasIndex("JobId");
+
+                    b.ToTable("AndroidJob");
+                });
+
             modelBuilder.Entity("AndroidManager.Web.Job", b =>
                 {
                     b.Property<int?>("Id")
@@ -55,6 +68,19 @@ namespace AndroidManagerServices.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Jobs");
+                });
+
+            modelBuilder.Entity("AndroidManager.Web.AndroidJob", b =>
+                {
+                    b.HasOne("AndroidManager.Web.Android", "Android")
+                        .WithMany("AndroidJobs")
+                        .HasForeignKey("AndroidId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("AndroidManager.Web.Job", "Job")
+                        .WithMany("AndroidJobs")
+                        .HasForeignKey("JobId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
         }

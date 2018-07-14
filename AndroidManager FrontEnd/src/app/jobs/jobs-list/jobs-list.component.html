@@ -1,44 +1,57 @@
-<div class="row margin-top-10">
-    <h2>Jobs</h2>
-    <table class="table table-striped">
+<div class="row">
+    <div class="col-sm-9 offset-sm-2">
+        <div class="row margin-top-10">
+            <h2>Jobs</h2>
+            <table class="table table-striped">
 
-        <tbody>
-            <tr>
-                <th>Name</th>
-                <th>Description</th>
-                <th>Complexity level</th>
-                <th></th>
-                <th></th>
-            </tr>
+                <tbody>
+                    <tr>
+                        <th>Name</th>
+                        <th>Description</th>
+                        <th>Complexity level</th>
+                        <th></th>
+                        <th></th>
+                    </tr>
 
-            <tr *ngFor="let job of jobs">
-                <td>{{job.jobName}}</td>
-                <td>{{job.description}}</td>
-                <td>Level {{job.complexityLevel}}</td>
-                <td>
-                    <button
-                        class="btn btn-primary"
-                        (click)="editJob(job.id)"
-                    >
-                        Edit
-                    </button>
-                </td>
-                <td>
-                    <button
-                        class="btn btn-danger"
-                        (click)="deleteJob(job.id)"
-                    >
-                        Delete
-                    </button>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-</div>
+                    <tr *ngFor="let job of jobs">
+                        <td>{{job.jobName}}</td>
+                        <td>{{job.description}}</td>
+                        <td>
+                            <span *ngIf="job.complexityLevel">Level {{job.complexityLevel }}</span>
+                            <span
+                                class="glyphicon glyphicon-ok"
+                                aria-hidden="true"
+                                *ngIf="!job.complexityLevel"
+                            >
+                                Done
+                            </span>
+                        </td>
+                        <td>
+                            <button
+                                class="btn btn-primary"
+                                (click)="editJob(job.id)"
+                            >
+                                Edit
+                            </button>
+                        </td>
+                        <td>
+                            <button
+                                class="btn btn-danger"
+                                (click)="deleteJob(job.id)"
+                            >
+                                Delete
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
 
-<div class="link">
-    <a routerLink="/jobs/create">Create job</a>
-</div>
-<div class="link">
-    <a routerLink>Go back to main page</a>
+        <div class="link">
+            <a routerLink="/jobs/create">Create job</a>
+        </div>
+        <div class="link">
+            <a routerLink>Go back to main page</a>
+        </div>
+    </div>
 </div>

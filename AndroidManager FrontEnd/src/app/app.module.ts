@@ -3,6 +3,8 @@ import { BrowserModule } from "@angular/platform-browser";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { HttpClientModule } from "@angular/common/http";
 import { RouterModule, Routes } from "@angular/router";
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { MultiselectDropdownModule } from 'angular-2-dropdown-multiselect';
 
 import { AppComponent } from "./app.component";
 import { JobsListComponent } from "./jobs/jobs-list/jobs-list.component";
@@ -27,7 +29,9 @@ const routes: Routes = [
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    RouterModule.forRoot(routes)
+    NgbModule.forRoot(),
+    RouterModule.forRoot(routes),
+    MultiselectDropdownModule,
   ],
   declarations: [
     AppComponent,

@@ -88,11 +88,12 @@ export class AndroidDetailComponent implements OnInit {
   }
 
   prepareModel(): any {
+    const formControls = this.androidForm.controls;
     return {
       id: this.androidId,
-      androidName: this.androidForm.value.androidName,
-      reliability: this.androidForm.controls.reliability.value,
-      image: this.androidForm.controls.avatarImage.value
+      androidName: formControls.androidName.value,
+      reliability: formControls.reliability.value,
+      image: formControls.avatarImage.value
     };
   }
 }

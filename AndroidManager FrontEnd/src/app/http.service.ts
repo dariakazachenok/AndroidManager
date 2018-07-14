@@ -4,9 +4,10 @@ import { RequestOptions } from "@angular/http";
 
 @Injectable()
 export class HttpService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
   private jobsUrl = "http://localhost:64845/api/jobs";
   private androidsUrl = "http://localhost:64845/api/androids";
+
   getData() {
     return this.http.get("http://localhost:64845/api/values");
   }
@@ -43,11 +44,16 @@ export class HttpService {
     return this.http.get(`${this.androidsUrl}/${id.toString()}`)
   }
 
-  putAndroid(id: number, data?:any) {
+  putAndroid(id: number, data?: any) {
     return this.http.put(`${this.androidsUrl}/${id.toString()}`, data)
   }
 
   deleteAndroid(id: number) {
     return this.http.delete(`${this.androidsUrl}/${id.toString()}`);
+  }
+
+  assignJob(data: any) {
+    debugger;
+    return this.http.post(`${this.androidsUrl}/assignJobs`, data)
   }
 }

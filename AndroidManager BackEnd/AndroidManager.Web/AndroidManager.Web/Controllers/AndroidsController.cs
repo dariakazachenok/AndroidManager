@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using System.IO;
+using AndroidManager.Web.Models;
 using AndroidManager.WebApi;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
@@ -10,11 +10,13 @@ namespace AndroidManager.Web.Controllers
     public class AndroidsController : Controller
     {
         private readonly AndroidService androidService;
+        private readonly JobService jobService;
         private readonly IMapper mapper;
 
-        public AndroidsController(AndroidService androidService, IMapper mapper)
+        public AndroidsController(AndroidService androidService, JobService jobService, IMapper mapper)
         {
             this.androidService = androidService;
+            this.jobService = jobService;
             this.mapper = mapper;
         }
 
@@ -24,7 +26,10 @@ namespace AndroidManager.Web.Controllers
             var androids = androidService.GetAllAndroids();
             var dtoModels = mapper.Map<List<Android>, List<AndroidDTOModel>>(androids);
 
-            return Ok(dtoModels);
+            var jobs = jobService.GetNotComplitedJobs();
+            var jobsDto = mapper.Map<List<Job>, List<JobDTOModel>>(jobs);
+
+            return Ok(new { androids = dtoModels, jobs = jobsDto });
         }
 
         [HttpPost]
@@ -35,6 +40,38 @@ namespace AndroidManager.Web.Controllers
 
             var android = mapper.Map<Android>(androidBindModel);
             androidService.Create(android);
+            return Ok();
+        }
+
+        [HttpPost]
+        [Route("assignJobs")]
+        public ActionResult AssignJobs([FromBody] AssignJobsModel assignJobsModel)
+        {
+            var androidId = assignJobsModel.AndroidId;
+            var android = androidService.GetAndroidById(assignJobsModel.AndroidId);
+            var jobs = jobService.GetJobsByIds(assignJobsModel.JobIds);
+
+            android.Reliability = android.Reliability - jobs.Count;
+            androidService.Edit(android);
+
+            jobs.ForEach(job =>
+            {
+                job.ComplexityLevel = job.ComplexityLevel - 1;
+                job.AndroidJobs.Add(new AndroidJob
+                {
+                    AndroidId = androidId,
+                    JobId = job.Id.Value
+                });
+                jobService.Edit(job);
+               /* android.AndroidJobs.Add(new AndroidJob
+                {
+                    AndroidId = androidId,
+                    JobId = job.Id.Value
+                }); */
+
+            });
+         
+
             return Ok();
         }
 
@@ -49,7 +86,7 @@ namespace AndroidManager.Web.Controllers
         }
 
         [HttpPut("{id}")]
-        public ActionResult Update(int id,[FromBody] AndroidBindModel androidBindModel)
+        public ActionResult Update(int id, [FromBody] AndroidBindModel androidBindModel)
         {
             if (!ModelState.IsValid)
                 return BadRequest();
