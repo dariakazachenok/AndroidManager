@@ -45,6 +45,7 @@ export class AndroidDetailComponent implements OnInit {
       androidName: ["", Validators.required],
       avatarImage: null,
       reliability: [{ value: "10", disabled: true }, , Validators.required]
+
     });
   }
 
@@ -93,7 +94,8 @@ export class AndroidDetailComponent implements OnInit {
       id: this.androidId,
       androidName: formControls.androidName.value,
       reliability: formControls.reliability.value,
-      image: formControls.avatarImage.value
+      image: formControls.avatarImage.value,
+      status: true
     };
   }
 }

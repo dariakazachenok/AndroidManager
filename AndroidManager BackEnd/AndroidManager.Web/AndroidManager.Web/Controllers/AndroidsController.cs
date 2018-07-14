@@ -52,6 +52,11 @@ namespace AndroidManager.Web.Controllers
             var jobs = jobService.GetJobsByIds(assignJobsModel.JobIds);
 
             android.Reliability = android.Reliability - jobs.Count;
+
+            if (android.Reliability == 0)
+            {
+                android.Status = false;
+            }
             androidService.Edit(android);
 
             jobs.ForEach(job =>
@@ -63,12 +68,6 @@ namespace AndroidManager.Web.Controllers
                     JobId = job.Id.Value
                 });
                 jobService.Edit(job);
-               /* android.AndroidJobs.Add(new AndroidJob
-                {
-                    AndroidId = androidId,
-                    JobId = job.Id.Value
-                }); */
-
             });
          
 

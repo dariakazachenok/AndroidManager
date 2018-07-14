@@ -31,8 +31,6 @@ namespace AndroidManager.Web
 
             services.AddTransient<AndroidService, AndroidService>();
 
-            //services.AddTransient<AssingTaskAndroidService, AssingTaskAndroidService>();
-
             services.AddCors();
 
             services.AddAutoMapper();

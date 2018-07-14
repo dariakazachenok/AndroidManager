@@ -4,4 +4,5 @@ export interface Android {
   avatarImage?: string;
   skills?: string;
   reliability: number;
+  status: boolean;
 }
