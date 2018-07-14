@@ -1,32 +1,44 @@
-<table>
-    <caption>Androids</caption>
-    <tbody>
-        <tr>
-            <th>Android name</th>
-            <th>Avatar</th>
-            <th>Skills</th>
-            <th>Reliability</th>
-            <th>Status</th>
-            <th></th>
-            <th></th>
-        </tr>
+<div class="row margin-top-10">
+    <h2>Androids</h2>
+    <table class="table table-striped">
 
-        <tr *ngFor="let android of androids">
-            <td>{{android.androidName}}</td>
-            <td>{{android.avatarImage}}</td>
-            <td> {{android.skills}}</td>
-            <td> {{android.reliability}}</td>
-            <td> {{android.status}}</td>
-            <td>
-                <button (click)="editAndroid(android.id)">Edit</button>
-            </td>
-            <td>
-                <button (click)="deleteAndroid(android.id)">Delete</button>
-            </td>
-        </tr>
+        <tbody>
+            <tr>
+                <th>Android name</th>
+                <th>Avatar</th>
+                <th>Skills</th>
+                <th>Reliability</th>
+                <th>Status</th>
+                <th></th>
+                <th></th>
+            </tr>
+            <tr *ngFor="let android of androids">
+                <td>{{android.androidName}}</td>
+                <td>{{android.avatarImage}}</td>
+                <td>{{android.skills}}</td>
+                <td>{{android.reliability}}</td>
+                <td>{{android.status}}</td>
+                <td>
+                    <button
+                        class="btn btn-primary"
+                        (click)="editAndroid(android.id)"
+                    >
+                        Edit
+                    </button>
+                </td>
+                <td>
+                    <button
+                        class="btn btn-danger"
+                        (click)="deleteAndroid(android.id)"
+                    >
+                        Delete
+                    </button>
+                </td>
+            </tr>
 
-    </tbody>
-</table>
+        </tbody>
+    </table>
+</div>
 
 <div class="link">
     <a routerLink="/androids/create">Create android</a>

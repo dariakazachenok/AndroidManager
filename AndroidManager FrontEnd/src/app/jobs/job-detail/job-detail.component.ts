@@ -42,7 +42,7 @@ export class JobDetailComponent implements OnInit {
 
   populateForm() {
     this.jobForm.patchValue({
-      name: this.job.jobName,
+      jobName: this.job.jobName,
       description: this.job.description,
       complexitylevel: this.complexityLevels.filter(
         x => x.id == this.job.complexityLevel

@@ -1,10 +1,6 @@
 import { Component, OnInit, ElementRef, ViewChild } from "@angular/core";
-import { Http, Headers, Request, Response, RequestOptions } from '@angular/http';
-import {
-  FormGroup,
-  Validators,
-  FormBuilder
-} from "@angular/forms";
+import { Headers, RequestOptions } from "@angular/http";
+import { FormGroup, Validators, FormBuilder } from "@angular/forms";
 import { ActivatedRoute, Router } from "@angular/router";
 
 import { HttpService } from "../../http.service";
@@ -48,7 +44,7 @@ export class AndroidDetailComponent implements OnInit {
     this.androidForm = this.fb.group({
       androidName: ["", Validators.required],
       avatarImage: null,
-      reliability: ["", Validators.required]
+      reliability: [{ value: "10", disabled: true }, , Validators.required]
     });
   }
 
@@ -57,9 +53,7 @@ export class AndroidDetailComponent implements OnInit {
       let file = event.target.files[0];
       this.androidForm.get("avatarImage").setValue(file);
     }
-
   }
-  
 
   populateForm() {
     this.androidForm.patchValue({
@@ -73,16 +67,15 @@ export class AndroidDetailComponent implements OnInit {
     const model = this.prepareModel();
 
     let options = new RequestOptions();
-    if (model.image)
-    {
+    if (model.image) {
       let headers = new Headers();
-      headers.set('Content-Type', 'application/octet-stream');
-      headers.set('Upload-Content-Type', model.image.type)
+      headers.set("Content-Type", "application/octet-stream");
+      headers.set("Upload-Content-Type", model.image.type);
 
-    this.headers = headers;
-    options.headers = this.headers;
+      this.headers = headers;
+      options.headers = this.headers;
     }
- 
+
     if (!this.androidId) {
       this.httpService.postAndroid(model, options).subscribe(() => {
         this.router.navigate(["/androids"]);
@@ -95,18 +88,11 @@ export class AndroidDetailComponent implements OnInit {
   }
 
   prepareModel(): any {
-    const formModel = this.androidForm.value;
-
     return {
       id: this.androidId,
-      androidName: formModel.androidName,
-      reliability: formModel.reliability,
+      androidName: this.androidForm.value.androidName,
+      reliability: this.androidForm.controls.reliability.value,
       image: this.androidForm.controls.avatarImage.value
     };
-  }
-
-  clearFile() {
-    this.androidForm.get("avatarImage").setValue(null);
-    this.fileInput.nativeElement.value = "";
   }
 }

@@ -1,27 +1,40 @@
-<table>
-    <caption>Jobs</caption>
-    <tbody>
-        <tr>
-            <th>Name</th>
-            <th>Description</th>
-            <th>Complexity level</th>
-            <th></th>
-            <th></th>
-        </tr>
+<div class="row margin-top-10">
+    <h2>Jobs</h2>
+    <table class="table table-striped">
 
-        <tr *ngFor="let job of jobs">
-            <td>{{job.jobName}}</td>
-            <td>{{job.description}}</td>
-            <td>Level {{job.complexityLevel}}</td>
-            <td>
-                <button (click)="editJob(job.id)">Edit</button>
-            </td>
-            <td>
-                <button (click)="deleteJob(job.id)">Delete</button>
-            </td>
-        </tr>
-    </tbody>
-</table>
+        <tbody>
+            <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Complexity level</th>
+                <th></th>
+                <th></th>
+            </tr>
+
+            <tr *ngFor="let job of jobs">
+                <td>{{job.jobName}}</td>
+                <td>{{job.description}}</td>
+                <td>Level {{job.complexityLevel}}</td>
+                <td>
+                    <button
+                        class="btn btn-primary"
+                        (click)="editJob(job.id)"
+                    >
+                        Edit
+                    </button>
+                </td>
+                <td>
+                    <button
+                        class="btn btn-danger"
+                        (click)="deleteJob(job.id)"
+                    >
+                        Delete
+                    </button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
 
 <div class="link">
     <a routerLink="/jobs/create">Create job</a>

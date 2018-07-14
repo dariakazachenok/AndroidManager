@@ -1,25 +1,24 @@
-<p>
+<h2>
     {{ (this.androidId ? 'Update android' :'Create android') }}
-</p>
+</h2>
 
 <form [formGroup]="androidForm">
-    <div class="details">
+    <div class="form-group">
         <label>Android name</label>
         <input
             class="form-control"
             name="androidName"
             formControlName="androidName"
         >
-
         <div
-            class="form-control"
+            class="alert alert-danger"
             *ngIf="androidForm.controls['androidName'].invalid && androidForm.controls['androidName'].touched"
         >
             name not specified
         </div>
     </div>
 
-    <div class="details">
+    <div class="form-group">
         <label>Avatar</label>
 
         <input
@@ -27,39 +26,33 @@
             type="file"
             (change)="onFileChange($event)"
             name="avatarImage"
-           
         >
-        <button
-            type="button"
-            class="form-control"
-            (click)="clearFile()"
-        >
-            clear file
-        </button>
 
     </div>
 
-    <div class="details">
+    <div class="form-group">
         <label>Reliability</label>
         <input
             class="form-control"
             type="text"
-            value="10"
             name="reliability"
             formControlName="reliability"
         >
     </div>
 
-    <div class="details">
+    <div class="form-group">
         <button
             (click)="submitForm()"
             class="btn btn-success"
+            [disabled]="androidForm.invalid"
         >
             {{ (this.androidId ? 'Update' :'Create') }}
         </button>
+        <a
+            class="btn btn-link"
+            routerLink="/androids"
+        >
+            Go back
+        </a>
     </div>
 </form>
-
-<div class="link">
-    <a routerLink="/androids">Go back</a>
-</div>

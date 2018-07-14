@@ -1,9 +1,9 @@
-<p>
+<h2>
     {{ (this.jobId ? 'Update job' :'Create job') }}
-</p>
+</h2>
 
 <form [formGroup]="jobForm">
-    <div class="details">
+    <div class="formGroup">
         <label>Job Name</label>
         <input
             class="form-control"
@@ -19,7 +19,7 @@
         </div>
     </div>
 
-    <div class="details">
+    <div class="formGroup">
         <label>Description</label>
         <input
             class="form-control"
@@ -35,8 +35,12 @@
         </div>
     </div>
 
-    <div class="details">
-        <select formControlName="complexitylevel">
+    <div class="formGroup">
+            <label>Level</label>
+        <select
+            class="form-control"
+            formControlName="complexitylevel"
+        >
             <option
                 *ngFor="let level of complexityLevels"
                 name="level"
@@ -47,16 +51,19 @@
         </select>
     </div>
 
-    <div class="details">
+    <div class="formGroup">
         <button
             (click)="submitForm()"
             class="btn btn-success"
+            [disabled]="jobForm.invalid"
         >
             {{ (this.jobId ? 'Update' :'Create') }}
         </button>
+        <a
+            class="btn btn-link"
+            routerLink="/jobs"
+        >
+            Go back
+        </a>
     </div>
 </form>
-
-<div class="link">
-    <a routerLink="/jobs">Go back</a>
-</div>
