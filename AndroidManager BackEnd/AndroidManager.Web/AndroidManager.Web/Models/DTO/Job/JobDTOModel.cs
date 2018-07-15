@@ -8,5 +8,6 @@ namespace AndroidManager.WebApi
         public string JobName { get; set; }
         public string Description { get; set; }
         public ComplexityLevel? ComplexityLevel { get; set; }
+        public string AssignedAndroids { get; set; }
     }
 }

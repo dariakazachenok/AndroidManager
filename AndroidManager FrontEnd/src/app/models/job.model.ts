@@ -3,4 +3,5 @@ export interface Job {
     jobName: string;
     description: string;
     complexityLevel?: number;
-  }
+    assignedAndroids?:string;
+}

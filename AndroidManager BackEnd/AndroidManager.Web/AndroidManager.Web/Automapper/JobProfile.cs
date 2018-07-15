@@ -1,4 +1,6 @@
 ﻿using AndroidManager.WebApi;
+using System;
+using System.Linq;
 
 namespace AndroidManager.Web.Automapper
 {
@@ -6,7 +8,10 @@ namespace AndroidManager.Web.Automapper
     {
         public JobProfile()
         {
-            CreateMap<Job, JobDTOModel>();
+            CreateMap<Job, JobDTOModel>()
+             .ForMember(x => x.AssignedAndroids, y => y.MapFrom(z =>
+               String.Join(Environment.NewLine, z.AndroidJobs.ToList().Select(x => x.Android.AndroidName).ToList())));
+
             CreateMap<JobBindModel, Job>();
         }
     }
