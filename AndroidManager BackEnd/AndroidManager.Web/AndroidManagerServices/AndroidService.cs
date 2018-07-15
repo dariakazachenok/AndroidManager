@@ -15,7 +15,7 @@ namespace AndroidManager.Web
 
            public List<Android> GetAllAndroids()
             {
-                return databaseContex.Androids.ToList();
+                return databaseContex.Androids.Include("AndroidJobs.Job").ToList();
             }
 
             public Android GetAndroidById(int id)

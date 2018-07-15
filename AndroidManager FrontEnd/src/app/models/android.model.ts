@@ -5,4 +5,5 @@ export interface Android {
   skills?: string;
   reliability: number;
   status: boolean;
+  completedJobs:string;
 }

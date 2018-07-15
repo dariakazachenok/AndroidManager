@@ -33,16 +33,19 @@ namespace AndroidManager.Web
 
             services.AddCors();
 
-            services.AddAutoMapper();
-            // add AutoMapper profiles
-            var config = new MapperConfiguration(cfg =>
+            services.AddMvc()
+                .AddFluentValidation();
+
+            AddAutomapperProfiles(services);
+        }
+
+        private void AddAutomapperProfiles(IServiceCollection services)
+        {
+            services.AddScoped(provider => new MapperConfiguration(cfg =>
             {
                 cfg.AddProfile(new JobProfile());
                 cfg.AddProfile(new AndroidProfile());
-            });
-
-            services.AddMvc()
-                .AddFluentValidation();
+            }).CreateMapper());
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -63,6 +66,8 @@ namespace AndroidManager.Web
 
             app.UseMvc();
         }
+
     }
+
 }
 

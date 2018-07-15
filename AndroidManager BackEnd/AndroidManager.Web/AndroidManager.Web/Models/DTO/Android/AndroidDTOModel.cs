@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-
-namespace AndroidManager.WebApi
+﻿namespace AndroidManager.WebApi
 {
     public class AndroidDTOModel
     {
@@ -9,5 +7,6 @@ namespace AndroidManager.WebApi
         public string Skills { get; set; }
         public int Reliability { get; set; }
         public bool Status { get; set; }
+        public string CompletedJobs { get; set; }
     }
 }

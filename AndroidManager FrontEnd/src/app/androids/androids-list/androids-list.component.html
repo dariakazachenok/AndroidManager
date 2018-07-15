@@ -1,104 +1,106 @@
 <div class="row">
-        <div class="col-sm-9 offset-sm-2">
-<div class="row margin-top-10">
-    <h2>Androids</h2>
-    <table class="table table-striped">
+    <div class="col-sm-9 offset-sm-2">
+        <div class="row margin-top-10">
+            <h2>Androids</h2>
+            <table class="table table-striped">
 
-        <tbody>
-            <tr>
-                <th>Android name</th>
-                <th>Avatar</th>
-                <th>Skills</th>
-                <th>Reliability</th>
-                <th>Status</th>
-                <th></th>
-                <th></th>
-                <th></th>
-            </tr>
-            <tr *ngFor="let android of androids">
-                <td>{{android.androidName}}</td>
-                <td>{{android.avatarImage}}</td>
-                <td>{{android.skills}}</td>
-                <td>{{android.reliability}}</td>
-                <td>{{android.status ? 1: 0}}</td>
-                <td>
-                    <button
-                        class="btn btn-primary"
-                        (click)="editAndroid(android.id)"
-                    >
-                        Edit
-                    </button>
-                </td>
-                <td>
-                    <button
-                        class="btn btn-danger"
-                        (click)="deleteAndroid(android.id)"
-                    >
-                        Delete
-                    </button>
-                </td>
-                <td>
-                    <ng-template
-                        #content
-                        let-c="close"
-                        let-d="dismiss"
-                    >
-                        <div class="modal-header">
-                            <h4 class="modal-title">Assign jobs</h4>
+                <tbody>
+                    <tr>
+                        <th>Android name</th>
+                        <th>Avatar</th>
+                        <th>Skills</th>
+                        <th>Reliability</th>
+                        <th>Status</th>
+                        <th>Completed Jobs</th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                    <tr *ngFor="let android of androids">
+                        <td>{{android.androidName}}</td>
+                        <td>{{android.avatarImage}}</td>
+                        <td>{{android.skills}}</td>
+                        <td>{{android.reliability}}</td>
+                        <td>{{android.status ? 1: 0}}</td>
+                        <td>{{android.completedJobs}}</td>
+                        <td>
                             <button
-                                type="button"
-                                class="close"
-                                aria-label="Close"
-                                (click)="d('Cross click')"
+                                class="btn btn-primary"
+                                (click)="editAndroid(android.id)"
                             >
-                                <span aria-hidden="true">×</span>
+                                Edit
                             </button>
-                        </div>
-                        <div class="modal-body">
-                            <ss-multiselect-dropdown
-                                [options]="jobItems"
-                                [(ngModel)]="optionsModel"
-                                (ngModelChange)="onChangeJob($event)"
-                                [settings]="jobSelectSettings"
-                            ></ss-multiselect-dropdown>
-                        </div>
-
-                        <div class="modal-footer">
-                                <button
-                                type="button"
-                                class="btn btn-success"
-                                (click)="save(android.id)"
-                            >
-                                Save
-                            </button>
+                        </td>
+                        <td>
                             <button
-                                type="button"
-                                class="btn btn-light"
-                                (click)="c('Close click')"
+                                class="btn btn-danger"
+                                (click)="deleteAndroid(android.id)"
                             >
-                                Close
+                                Delete
                             </button>
-                        </div>
-                    </ng-template>
-                    <button
-                        class="btn btn-outline-primary mb-2 mr-2"
-                        (click)="openDialog(content)"
-                    >
-                        Assign Jobs
-                    </button>
+                        </td>
+                        <td>
+                            <ng-template
+                                #content
+                                let-c="close"
+                                let-d="dismiss"
+                            >
+                                <div class="modal-header">
+                                    <h4 class="modal-title">Assign jobs</h4>
+                                    <button
+                                        type="button"
+                                        class="close"
+                                        aria-label="Close"
+                                        (click)="d('Cross click')"
+                                    >
+                                        <span aria-hidden="true">×</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <ss-multiselect-dropdown
+                                        [options]="jobItems"
+                                        [(ngModel)]="optionsModel"
+                                        (ngModelChange)="onChangeJob($event)"
+                                        [settings]="jobSelectSettings"
+                                    ></ss-multiselect-dropdown>
+                                </div>
 
-                </td>
-            </tr>
+                                <div class="modal-footer">
+                                    <button
+                                        type="button"
+                                        class="btn btn-success"
+                                        (click)="save(android.id)"
+                                    >
+                                        Save
+                                    </button>
+                                    <button
+                                        type="button"
+                                        class="btn btn-light"
+                                        (click)="c('Close click')"
+                                    >
+                                        Close
+                                    </button>
+                                </div>
+                            </ng-template>
+                            <button
+                                class="btn btn-outline-primary mb-2 mr-2"
+                                (click)="openDialog(content)"
+                            >
+                                Assign Jobs
+                            </button>
 
-        </tbody>
-    </table>
-</div>
+                        </td>
+                    </tr>
 
-<div class="link">
-    <a routerLink="/androids/create">Create android</a>
-</div>
-<div class="link">
-    <a routerLink>Go back to main page</a>
-</div>
-</div>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="link">
+            <a routerLink="/androids/create">Create android</a>
+        </div>
+        <div class="link">
+            <a routerLink>Go back to main page</a>
+        </div>
+    </div>
 </div>
