@@ -18,6 +18,8 @@ export class AndroidDetailComponent implements OnInit {
   androidId: number;
   status: boolean;
   headers: Headers = new Headers();
+  imageUrl: string = "../../../assets/img/default-image.jpg"
+  fileToUpload: File = null;
 
   @ViewChild("fileInput") fileInput: ElementRef;
 
@@ -26,7 +28,7 @@ export class AndroidDetailComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private fb: FormBuilder
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.createAndroidForm();
@@ -75,7 +77,10 @@ export class AndroidDetailComponent implements OnInit {
 
       this.headers = headers;
       options.headers = this.headers;
-    }
+    } 
+    /*debugger;
+    const formData = new FormData();
+    formData.append('Image', this.fileToUpload, this.fileToUpload.name)*/
 
     if (!this.androidId) {
       this.httpService.postAndroid(model, options).subscribe(() => {
@@ -86,6 +91,17 @@ export class AndroidDetailComponent implements OnInit {
         this.router.navigate(["/androids"]);
       });
     }
+  }
+
+  handleFileInput(file: FileList) {
+    debugger;
+    this.fileToUpload = file.item(0);
+
+    var reader = new FileReader();
+    reader.onload = (event: any) => {
+      this.imageUrl = event.target.result;
+    }
+    reader.readAsDataURL(this.fileToUpload);
   }
 
   prepareModel(): any {

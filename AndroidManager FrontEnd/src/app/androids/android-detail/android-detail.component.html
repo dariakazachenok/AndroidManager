@@ -1,62 +1,39 @@
 <div class="row">
-        <div class="col-sm-6 offset-sm-3">
-<h2>
-    {{ (this.androidId ? 'Update android' :'Create android') }}
-</h2>
+    <div class="col-sm-6 offset-sm-3">
+        <h2>
+            {{ (this.androidId ? 'Update android' :'Create android') }}
+        </h2>
 
-<form [formGroup]="androidForm">
-    <div class="form-group">
-        <label>Android name</label>
-        <input
-            class="form-control"
-            name="androidName"
-            formControlName="androidName"
-        >
-        <div
-            class="alert alert-danger"
-            *ngIf="androidForm.controls['androidName'].invalid && androidForm.controls['androidName'].touched"
-        >
-            name not specified
-        </div>
+        <form [formGroup]="androidForm">
+            <div class="form-group">
+                <label>Android name</label>
+                <input class="form-control" name="androidName" formControlName="androidName">
+                <div class="alert alert-danger" *ngIf="androidForm.controls['androidName'].invalid && androidForm.controls['androidName'].touched">
+                    name not specified
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Avatar</label>
+                <div class="row">
+                    <img [src]="imageUrl" style="width: 100px; height: 100px;" class="border">
+                    <input type="file" (change)="handleFileInput($event.target.files)" name="avatarImage" accept="image/*">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Reliability</label>
+                <input class="form-control" type="text" name="reliability" formControlName="reliability">
+            </div>
+
+            <div class="form-group">
+                <button (click)="submitForm()" class="btn btn-success" [disabled]="androidForm.invalid">
+                    {{ (this.androidId ? 'Update' :'Create') }}
+                </button>
+                <a class="btn btn-link" routerLink="/androids">
+                    Go back
+                </a>
+            </div>
+        </form>
     </div>
-
-    <div class="form-group">
-        <label>Avatar</label>
-
-        <input
-            class="form-control"
-            type="file"
-            (change)="onFileChange($event)"
-            name="avatarImage"
-        >
-
-    </div>
-
-    <div class="form-group">
-        <label>Reliability</label>
-        <input
-            class="form-control"
-            type="text"
-            name="reliability"
-            formControlName="reliability"
-        >
-    </div>
-
-    <div class="form-group">
-        <button
-            (click)="submitForm()"
-            class="btn btn-success"
-            [disabled]="androidForm.invalid"
-        >
-            {{ (this.androidId ? 'Update' :'Create') }}
-        </button>
-        <a
-            class="btn btn-link"
-            routerLink="/androids"
-        >
-            Go back
-        </a>
-    </div>
-</form>
-</div>
 </div>

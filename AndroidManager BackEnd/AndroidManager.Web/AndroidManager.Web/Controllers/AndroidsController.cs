@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
-using AndroidManager.Web.Models;
+﻿using AndroidManager.Web.Models;
 using AndroidManager.WebApi;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 
 namespace AndroidManager.Web.Controllers
 {
@@ -33,8 +33,25 @@ namespace AndroidManager.Web.Controllers
         }
 
         [HttpPost]
+        [Route("postImage")]
+        public ActionResult PostImage()
+        {
+           // string imageName = null;
+            var httpRequest = HttpContext.Response;
+
+            //var postedFile = httpRequest.Form.Files["Image"];
+            return Ok();
+        }
+
+        [HttpPost]
         public ActionResult Create([FromBody] AndroidBindModel androidBindModel)
         {
+           
+            /*
+            imageName = new string(Path.GetFileNameWithoutExtension(postedFile.FileName).Take(10).ToArray()).Replace(" ", "-");
+            imageName = imageName + DateTime.Now.ToString("yymmssfff") + Path.GetExtension(postedFile.FileName);
+            var filePath = "/Image/" + imageName;
+            postedFile.SaveAs(filePath); */
             if (!ModelState.IsValid)
                 return BadRequest();
 
