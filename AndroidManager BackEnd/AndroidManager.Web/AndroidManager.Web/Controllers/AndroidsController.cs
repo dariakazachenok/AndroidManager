@@ -26,10 +26,7 @@ namespace AndroidManager.Web.Controllers
             var androids = androidService.GetAllAndroids();
             var dtoModels = mapper.Map<List<Android>, List<AndroidDTOModel>>(androids);
 
-            var jobs = jobService.GetNotComplitedJobs();
-            var jobsDto = mapper.Map<List<Job>, List<JobDTOModel>>(jobs);
-
-            return Ok(new { androids = dtoModels, jobs = jobsDto });
+            return Ok(dtoModels);
         }
 
         [HttpPost]

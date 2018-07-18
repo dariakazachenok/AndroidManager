@@ -15,7 +15,7 @@ const routes: Routes = [
   { path: "jobs", component: JobsListComponent, canActivate: [AuthGuard] },
   {
     path: "androids",
-    component: AndroidsListComponent,
+    component: AndroidsListComponent, canActivate: [AuthGuard]
    
   },
   { path: "androids/create", component: AndroidDetailComponent },
@@ -34,6 +34,12 @@ const routes: Routes = [
 export class AppRoutingModule {
     static components = [
         HomeComponent,
-        AndroidDetailComponent
+        AndroidDetailComponent,
+        AndroidsListComponent,
+        JobDetailComponent,
+        JobsListComponent,
+        LoginComponent,
+        NotAccessComponent,
+        NotFoundComponent
       ];
 }

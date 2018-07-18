@@ -5,6 +5,7 @@ import {
   IMultiSelectOption,
   IMultiSelectSettings
 } from "angular-2-dropdown-multiselect";
+import { forkJoin } from "rxjs";
 
 import { HttpService } from "../../http.service";
 import { Android } from "../../models/android.model";
@@ -34,16 +35,19 @@ export class AndroidsListComponent implements OnInit {
     private httpService: HttpService,
     private router: Router,
     private modalService: NgbModal
-  ) { }
+  ) {}
 
   ngOnInit() {
-    this.getAndroids();
+    this.loadData();
   }
 
-  getAndroids(): void {
-    this.httpService.getAndroids().subscribe((data: any) => {
-      this.androids = data.androids;
-      this.jobs = data.jobs;
+  loadData(): void {
+    forkJoin([
+      this.httpService.getAndroids(),
+      this.httpService.getJobs(true)
+    ]).subscribe((data: any) => {
+      this.androids = data[0];
+      this.jobs = data[1];
       this.jobItems = this.jobs.map((opt: Job) => ({
         id: opt.id,
         name: opt.jobName
@@ -67,8 +71,7 @@ export class AndroidsListComponent implements OnInit {
     }
   }
 
-  onChangeJob(event: Event) {
-  }
+  onChangeJob(event: Event) {}
 
   save(androidId: number) {
     if (this.optionsModel.length === 0) {
@@ -79,7 +82,7 @@ export class AndroidsListComponent implements OnInit {
     this.optionsModel.forEach(x => jobIds.push(x));
     const model = { jobIds: jobIds, androidId: androidId };
     this.httpService.assignJob(model).subscribe(() => {
-      this.getAndroids();
+      this.loadData();
       this.optionsModel = [];
       this.modalReference.close();
     });

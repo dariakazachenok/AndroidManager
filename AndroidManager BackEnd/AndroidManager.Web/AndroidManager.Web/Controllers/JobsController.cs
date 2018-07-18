@@ -18,9 +18,9 @@ namespace AndroidManager.Web.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetAll()
+        public IActionResult GetAll(bool incompleted)
         {
-            var jobs = jobService.GetAllJobs();
+            var jobs = jobService.GetAllJobs(incompleted);
             var dtoModels = mapper.Map<List<Job>, List<JobDTOModel>>(jobs);
 
             return Ok(dtoModels);
@@ -31,14 +31,14 @@ namespace AndroidManager.Web.Controllers
         {
             if (!ModelState.IsValid)
                 return BadRequest();
-          
+
             var job = mapper.Map<Job>(jobBindModel);
             jobService.Create(job);
             return Ok();
         }
 
         [HttpGet("{id}")]
-        public ActionResult Update( int id)
+        public ActionResult Update(int id)
         {
             var job = jobService.GetJobById(id);
 
@@ -48,7 +48,7 @@ namespace AndroidManager.Web.Controllers
         }
 
         [HttpPut("{id}")]
-        public ActionResult Update( int id,[FromBody] JobBindModel jobBindModel)
+        public ActionResult Update(int id, [FromBody] JobBindModel jobBindModel)
         {
             if (!ModelState.IsValid)
                 return BadRequest();

@@ -4,7 +4,8 @@ import { HttpClient } from "@angular/common/http";
 @Injectable()
 export class HttpService {
   constructor(private http: HttpClient) {}
-  private jobsUrl = "http://localhost:64845/api/jobs";
+  private url = 'http://localhost:64845/api/';
+  private jobsUrl = `${this.url}jobs`;
   private androidsUrl = "http://localhost:64845/api/androids";
 
 
@@ -12,8 +13,8 @@ export class HttpService {
     return this.http.get("http://localhost:64845/api/values");
   }
 
-  getJobs() {
-    return this.http.get(`${this.jobsUrl}`);
+  getJobs(incompleted:boolean = false) {
+    return this.http.get(`${this.jobsUrl}?incompleted=${incompleted}`);
   }
 
   postJob(data: any) {

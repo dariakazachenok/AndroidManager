@@ -1,73 +1,73 @@
 <div class="row">
-        <div class="col-sm-6 offset-sm-3">
-<h2>
-    {{ (this.jobId ? 'Update job' :'Create job') }}
-</h2>
+    <div class="col-sm-6 offset-sm-3">
+        <h2>
+            {{ (this.jobId ? 'Update job' :'Create job') }}
+        </h2>
 
-<form [formGroup]="jobForm">
-    <div class="formGroup">
-        <label>Job Name</label>
-        <input
-            class="form-control"
-            name="jobName"
-            formControlName="jobName"
-        >
+        <form [formGroup]="jobForm">
+            <div class="formGroup">
+                <label>Job Name</label>
+                <input
+                    class="form-control"
+                    name="jobName"
+                    formControlName="jobName"
+                >
 
-        <div
-            class="alert alert-danger"
-            *ngIf="jobForm.controls['jobName'].invalid && jobForm.controls['jobName'].touched"
-        >
-            name not specified
-        </div>
+                <div
+                    class="alert alert-danger"
+                    *ngIf="jobForm.controls['jobName'].invalid && jobForm.controls['jobName'].touched"
+                >
+                    name not specified
+                </div>
+            </div>
+
+            <div class="formGroup">
+                <label>Description</label>
+                <input
+                    class="form-control"
+                    name="description"
+                    formControlName="description"
+                >
+
+                <div
+                    class="alert alert-danger"
+                    *ngIf="jobForm.controls['description'].invalid && jobForm.controls['description'].touched"
+                >
+                    description not specified
+                </div>
+            </div>
+
+            <div class="formGroup">
+                <label>Level</label>
+                <select
+                    class="form-control"
+                    formControlName="complexitylevel"
+                >
+                    <option
+                        *ngFor="let level of complexityLevels"
+                        name="level"
+                        [ngValue]="level"
+                    >
+                        {{ level.name }}
+                    </option>
+                </select>
+            </div>
+
+            <div class="formGroup">
+                <button
+                    (click)="submitForm()"
+                    class="btn btn-success"
+                    [disabled]="jobForm.invalid"
+                >
+                    {{ (this.jobId ? 'Update' :'Create') }}
+                </button>
+                <a
+                    class="btn btn-link"
+                    routerLink="/jobs"
+                >
+                    Go back
+                </a>
+            </div>
+        </form>
     </div>
-
-    <div class="formGroup">
-        <label>Description</label>
-        <input
-            class="form-control"
-            name="description"
-            formControlName="description"
-        >
-
-        <div
-            class="alert alert-danger"
-            *ngIf="jobForm.controls['description'].invalid && jobForm.controls['description'].touched"
-        >
-            description not specified
-        </div>
-    </div>
-
-    <div class="formGroup">
-            <label>Level</label>
-        <select
-            class="form-control"
-            formControlName="complexitylevel"
-        >
-            <option
-                *ngFor="let level of complexityLevels"
-                name="level"
-                [ngValue]="level"
-            >
-                {{ level.name }}
-            </option>
-        </select>
-    </div>
-
-    <div class="formGroup">
-        <button
-            (click)="submitForm()"
-            class="btn btn-success"
-            [disabled]="jobForm.invalid"
-        >
-            {{ (this.jobId ? 'Update' :'Create') }}
-        </button>
-        <a
-            class="btn btn-link"
-            routerLink="/jobs"
-        >
-            Go back
-        </a>
-    </div>
-</form>
-</div>
 </div>

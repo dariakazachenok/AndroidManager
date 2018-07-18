@@ -13,9 +13,13 @@ namespace AndroidManager.Web
             this.databaseContex = databaseContex;
         }
 
-        public List<Job> GetAllJobs()
+        public List<Job> GetAllJobs(bool incompleted)
         {
-            return databaseContex.Jobs.Include("AndroidJobs.Android").ToList();
+            var request = databaseContex.Jobs.Include("AndroidJobs.Android");
+
+            return incompleted ?
+                request.Where(x => x.ComplexityLevel > 0).ToList() :
+                request.ToList();
         }
 
         public List<Job> GetJobsByIds(List<int> ids)
