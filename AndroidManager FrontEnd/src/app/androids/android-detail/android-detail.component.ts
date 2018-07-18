@@ -47,7 +47,7 @@ export class AndroidDetailComponent implements OnInit {
       androidName: ["", Validators.required],
       avatarImage: null,
       skills: ["", Validators.required],
-      reliability: [{ value: "10", disabled: true }, , Validators.required]
+      reliability: [{ value: "10", disabled: true }, Validators.required]
     });
   }
 

@@ -84,7 +84,6 @@ namespace AndroidManager.Web.Controllers
                 jobService.Edit(job);
             });
          
-
             return Ok();
         }
 
