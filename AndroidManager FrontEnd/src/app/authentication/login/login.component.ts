@@ -1,17 +1,20 @@
 import { Component, OnInit } from "@angular/core";
 import { Router, ActivatedRoute } from "@angular/router";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { first } from "rxjs/operators";
+import { Injectable } from "@angular/core";
 
 import { AlertService } from "../../services/alert.service";
 import { AuthenticationService } from "../authentication.service";
+import { LoginModel } from "../../models/login.model";
 
 @Component({ templateUrl: "./login.component.html" })
+@Injectable()
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   loading = false;
   submitted = false;
   returnUrl: string;
+  loginModel: LoginModel;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -23,20 +26,12 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     this.loginForm = this.formBuilder.group({
-      username: ["", Validators.required],
+      email: ["", Validators.required],
       password: ["", Validators.required]
     });
 
-    // reset login status
-    this.authenticationService.logout();
-
     // get return url from route parameters or default to '/'
     this.returnUrl = this.route.snapshot.queryParams["returnUrl"] || "/";
-  }
-
-  // convenience getter for easy access to form fields
-  get f() {
-    return this.loginForm.controls;
   }
 
   onSubmit() {
@@ -48,17 +43,25 @@ export class LoginComponent implements OnInit {
     }
 
     this.loading = true;
-    this.authenticationService
-      .login(this.f.username.value, this.f.password.value)
-      .pipe(first())
-      .subscribe(
-        data => {
-          this.router.navigate([this.returnUrl]);
-        },
-        error => {
-          this.alertService.error(error);
-          this.loading = false;
-        }
-      );
+
+    this.loginModel = this.prepareLoginModel();
+
+    this.authenticationService.login(this.loginModel).subscribe(
+      () => {
+        this.router.navigate([this.returnUrl]);
+      },
+      error => {
+        this.alertService.error(error);
+        this.loading = false;
+      }
+    );
+  }
+
+  prepareLoginModel(): LoginModel {
+    const formControls = this.loginForm.controls;
+    return {
+      email: formControls.email.value,
+      password: formControls.password.value
+    };
   }
 }

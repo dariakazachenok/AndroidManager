@@ -7,6 +7,7 @@ export class HttpService {
   private jobsUrl = "http://localhost:64845/api/jobs";
   private androidsUrl = "http://localhost:64845/api/androids";
 
+
   getData() {
     return this.http.get("http://localhost:64845/api/values");
   }
@@ -56,7 +57,6 @@ export class HttpService {
   }
 
   assignJob(data: any) {
-    debugger;
     return this.http.post(`${this.androidsUrl}/assignJobs`, data);
   }
 }

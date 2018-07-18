@@ -1,7 +1,10 @@
 import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
-import { IMultiSelectOption, IMultiSelectSettings } from "angular-2-dropdown-multiselect";
+import {
+  IMultiSelectOption,
+  IMultiSelectSettings
+} from "angular-2-dropdown-multiselect";
 
 import { HttpService } from "../../http.service";
 import { Android } from "../../models/android.model";
@@ -65,21 +68,16 @@ export class AndroidsListComponent implements OnInit {
   }
 
   onChangeJob(event: Event) {
-    /* debugger;
-     console.log(event);
-     console.log(this.optionsModel); */
-  };
+  }
 
   save(androidId: number) {
-  
-    if (this.optionsModel.length === 0)
-    {
+    if (this.optionsModel.length === 0) {
       return;
     }
 
     let jobIds = Array<number>();
     this.optionsModel.forEach(x => jobIds.push(x));
-    const model = { jobIds: jobIds, androidId: androidId }
+    const model = { jobIds: jobIds, androidId: androidId };
     this.httpService.assignJob(model).subscribe(() => {
       this.getAndroids();
       this.optionsModel = [];

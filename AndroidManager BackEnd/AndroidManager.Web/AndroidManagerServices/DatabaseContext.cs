@@ -6,6 +6,7 @@ namespace AndroidManager.Web
     {
         public DbSet<Job> Jobs { get; set; }
         public DbSet<Android> Androids { get; set; }
+        public DbSet<Operator> Operators { get; set; }
 
         public DatabaseContext(DbContextOptions<DatabaseContext> options)
               : base(options)
@@ -16,9 +17,7 @@ namespace AndroidManager.Web
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<AndroidJob>()
-         .HasKey(pc => new { pc.AndroidId, pc.JobId });
-
+            modelBuilder.Entity<AndroidJob>().HasKey(pc => new { pc.AndroidId, pc.JobId });
         }
     }
 }

@@ -1,12 +1,15 @@
 ﻿using AndroidManager.Web.Automapper;
+using AndroidManager.Web.Models;
 using AutoMapper;
 using FluentValidation.AspNetCore;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 namespace AndroidManager.Web
 {
@@ -26,10 +29,9 @@ namespace AndroidManager.Web
             services.AddDbContext<DatabaseContext>(options =>
              options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
-            // добавляем контекст DatabaseContext в качестве сервиса в приложение
             services.AddTransient<JobService, JobService>();
-
             services.AddTransient<AndroidService, AndroidService>();
+            services.AddTransient<UserService, UserService>();
 
             services.AddCors();
 
@@ -37,6 +39,27 @@ namespace AndroidManager.Web
                 .AddFluentValidation();
 
             AddAutomapperProfiles(services);
+            AddAuth(services);
+        }
+
+        private void AddAuth(IServiceCollection services)
+        {
+            services.AddSingleton(Configuration.GetSection("JWT").Get<JwtConfigurationModel>());
+
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(options =>
+                {
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuer = true,
+                        ValidateAudience = true,
+                        ValidateLifetime = true,
+                        ValidateIssuerSigningKey = true,
+                        ValidIssuer = Configuration["Jwt:Issuer"],
+                        ValidAudience = Configuration["Jwt:Audience"],
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Jwt:Key"]))
+                    };
+                });
         }
 
         private void AddAutomapperProfiles(IServiceCollection services)
@@ -60,14 +83,13 @@ namespace AndroidManager.Web
             app.UseStaticFiles();
 
             app.UseCors(builder => builder.WithOrigins("*")
-                    .AllowAnyOrigin()
-                    .AllowAnyHeader()
+                     .AllowAnyHeader()
                     .AllowAnyMethod());
+
+            app.UseAuthentication();
 
             app.UseMvc();
         }
-
     }
-
 }
 

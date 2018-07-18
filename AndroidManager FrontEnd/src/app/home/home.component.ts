@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { User } from "../models/user";
+import { LoginModel } from "../models/login.model";
 
 @Component({
   selector: "app-home",
@@ -7,7 +7,7 @@ import { User } from "../models/user";
   styleUrls: ["./home.component.css"]
 })
 export class HomeComponent implements OnInit {
-  currentUser: User;
+  currentUser: LoginModel;
 
   constructor() {
     this.currentUser = JSON.parse(localStorage.getItem("currentUser"));

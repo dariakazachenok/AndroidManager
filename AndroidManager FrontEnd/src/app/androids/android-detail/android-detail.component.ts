@@ -18,7 +18,7 @@ export class AndroidDetailComponent implements OnInit {
   androidId: number;
   status: boolean;
   headers: Headers = new Headers();
-  imageUrl: string = "../../../assets/img/default-image.jpg"
+  imageUrl: string = "../../../assets/img/default-image.jpg";
   fileToUpload: File = null;
 
   @ViewChild("fileInput") fileInput: ElementRef;
@@ -28,7 +28,7 @@ export class AndroidDetailComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private fb: FormBuilder
-  ) { }
+  ) {}
 
   ngOnInit() {
     this.createAndroidForm();
@@ -46,8 +46,8 @@ export class AndroidDetailComponent implements OnInit {
     this.androidForm = this.fb.group({
       androidName: ["", Validators.required],
       avatarImage: null,
+      skills: ["", Validators.required],
       reliability: [{ value: "10", disabled: true }, , Validators.required]
-
     });
   }
 
@@ -62,6 +62,7 @@ export class AndroidDetailComponent implements OnInit {
     this.androidForm.patchValue({
       androidName: this.android.androidName,
       avatarImage: this.android.avatarImage,
+      skills: this.android.reliability,
       reliability: this.android.reliability
     });
   }
@@ -77,9 +78,8 @@ export class AndroidDetailComponent implements OnInit {
 
       this.headers = headers;
       options.headers = this.headers;
-    } 
-    /*debugger;
-    const formData = new FormData();
+    }
+    /*    const formData = new FormData();
     formData.append('Image', this.fileToUpload, this.fileToUpload.name)*/
 
     if (!this.androidId) {
@@ -94,13 +94,12 @@ export class AndroidDetailComponent implements OnInit {
   }
 
   handleFileInput(file: FileList) {
-    debugger;
     this.fileToUpload = file.item(0);
 
     var reader = new FileReader();
     reader.onload = (event: any) => {
       this.imageUrl = event.target.result;
-    }
+    };
     reader.readAsDataURL(this.fileToUpload);
   }
 
@@ -109,6 +108,7 @@ export class AndroidDetailComponent implements OnInit {
     return {
       id: this.androidId,
       androidName: formControls.androidName.value,
+      skills: formControls.skills.value,
       reliability: formControls.reliability.value,
       image: formControls.avatarImage.value,
       status: true

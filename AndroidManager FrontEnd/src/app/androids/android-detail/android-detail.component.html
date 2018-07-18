@@ -7,8 +7,15 @@
         <form [formGroup]="androidForm">
             <div class="form-group">
                 <label>Android name</label>
-                <input class="form-control" name="androidName" formControlName="androidName">
-                <div class="alert alert-danger" *ngIf="androidForm.controls['androidName'].invalid && androidForm.controls['androidName'].touched">
+                <input
+                    class="form-control"
+                    name="androidName"
+                    formControlName="androidName"
+                >
+                <div
+                    class="alert alert-danger"
+                    *ngIf="androidForm.controls['androidName'].invalid && androidForm.controls['androidName'].touched"
+                >
                     name not specified
                 </div>
             </div>
@@ -16,21 +23,58 @@
             <div class="form-group">
                 <label>Avatar</label>
                 <div class="row">
-                    <img [src]="imageUrl" style="width: 100px; height: 100px;" class="border">
-                    <input type="file" (change)="handleFileInput($event.target.files)" name="avatarImage" accept="image/*">
+                    <img
+                        [src]="imageUrl"
+                        style="width: 100px; height: 100px;"
+                        class="border"
+                    >
+                    <input
+                        type="file"
+                        (change)="handleFileInput($event.target.files)"
+                        name="avatarImage"
+                        accept="image/*"
+                    >
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Skills</label>
+                <textarea
+                    class="form-control"
+                    name="skills"
+                    formControlName="skills"
+                >
+                </textarea>
+                <div
+                    class="alert alert-danger"
+                    *ngIf="androidForm.controls['skills'].invalid && androidForm.controls['skills'].touched"
+                >
+                    skills not specified
                 </div>
             </div>
 
             <div class="form-group">
                 <label>Reliability</label>
-                <input class="form-control" type="text" name="reliability" formControlName="reliability">
+                <input
+                    class="form-control"
+                    type="text"
+                    name="reliability"
+                    formControlName="reliability"
+                >
             </div>
 
             <div class="form-group">
-                <button (click)="submitForm()" class="btn btn-success" [disabled]="androidForm.invalid">
+                <button
+                    (click)="submitForm()"
+                    class="btn btn-success"
+                    [disabled]="androidForm.invalid"
+                >
                     {{ (this.androidId ? 'Update' :'Create') }}
                 </button>
-                <a class="btn btn-link" routerLink="/androids">
+                <a
+                    class="btn btn-link"
+                    routerLink="/androids"
+                >
                     Go back
                 </a>
             </div>
