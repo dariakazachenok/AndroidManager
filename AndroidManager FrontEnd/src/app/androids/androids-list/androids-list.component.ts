@@ -42,6 +42,7 @@ export class AndroidsListComponent implements OnInit {
   }
 
   loadData(): void {
+    debugger;
     forkJoin([
       this.httpService.getAndroids(),
       this.httpService.getJobs(true)

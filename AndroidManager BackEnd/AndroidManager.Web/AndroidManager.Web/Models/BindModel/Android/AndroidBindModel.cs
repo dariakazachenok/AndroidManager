@@ -8,5 +8,6 @@ namespace AndroidManager.WebApi
         public string Skills { get; set; }
         public int Reliability { get; set; }
         public bool Status { get; set; }
+        public IFormFile AvatarImage { get; set; }
     }
 }

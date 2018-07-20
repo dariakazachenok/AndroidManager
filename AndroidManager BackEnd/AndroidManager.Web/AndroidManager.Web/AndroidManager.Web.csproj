@@ -5,6 +5,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Folder Include="Image\" />
+    <Folder Include="NewFolder\" />
     <Folder Include="wwwroot\" />
   </ItemGroup>
 
@@ -12,6 +14,9 @@
     <PackageReference Include="AutoMapper" Version="7.0.1" />
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="4.0.1" />
     <PackageReference Include="FluentValidation.AspNetCore" Version="7.6.104" />
+    <PackageReference Include="Microsoft.AspNet.WebApi.Core" Version="5.2.6" />
+    <PackageReference Include="Microsoft.AspNet.WebApi.Cors" Version="5.2.6" />
+    <PackageReference Include="Microsoft.AspNet.WebApi.WebHost" Version="5.2.6" />
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.1.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.1.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.1.1" />

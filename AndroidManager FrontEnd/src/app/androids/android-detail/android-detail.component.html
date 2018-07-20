@@ -30,9 +30,9 @@
                     >
                     <input
                         type="file"
-                        (change)="handleFileInput($event.target.files)"
+                        (change)="onFileChange($event)"
                         name="avatarImage"
-                        accept="image/*"
+                        #fileInput
                     >
                 </div>
             </div>

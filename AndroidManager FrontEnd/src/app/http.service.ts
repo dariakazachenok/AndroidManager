@@ -31,12 +31,12 @@ export class HttpService {
     return this.http.get(`${AppSettings.API_ENDPOINT}androids`);
   }
 
-  postAndroid(data: any, options: any) {
-    return this.http.post(`${AppSettings.API_ENDPOINT}androids`, data, options);
+  postAndroid(data: any) {
+    return this.http.post(`${AppSettings.API_ENDPOINT}androids`, data);
   }
 
   postImage(data: any) {
-    return this.http.post(`${AppSettings.API_ENDPOINT}postImage`, data);
+    return this.http.post(`${AppSettings.API_ENDPOINT}androids/postImage`,data);
   }
 
   getAndroidById(id: number) {

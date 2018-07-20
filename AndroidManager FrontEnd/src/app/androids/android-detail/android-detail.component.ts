@@ -31,6 +31,7 @@ export class AndroidDetailComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    debugger;
     this.createAndroidForm();
     this.androidId = this.route.snapshot.params["id"];
 
@@ -43,15 +44,17 @@ export class AndroidDetailComponent implements OnInit {
   }
 
   createAndroidForm() {
+    debugger;
     this.androidForm = this.fb.group({
       androidName: ["", Validators.required],
-      avatarImage: null,
+      avatarImage: [null, Validators.required],
       skills: ["", Validators.required],
-      reliability: [{ value: "10", disabled: true }, Validators.required]
+      reliability: [{ value: "10", disabled: true }, Validators.required],
     });
   }
 
   onFileChange(event) {
+    debugger;
     if (event.target.files.length > 0) {
       let file = event.target.files[0];
       this.androidForm.get("avatarImage").setValue(file);
@@ -68,22 +71,24 @@ export class AndroidDetailComponent implements OnInit {
   }
 
   submitForm() {
-    const model = this.prepareModel();
+    debugger;
+    const model = this.prepareSave();
 
-    let options = new RequestOptions();
-    if (model.image) {
+    /* let options = new RequestOptions();
+    if (this.fileToUpload) {
       let headers = new Headers();
       headers.set("Content-Type", "application/octet-stream");
-      headers.set("Upload-Content-Type", model.image.type);
+      headers.set("Upload-Content-Type", this.fileToUpload.type);
 
       this.headers = headers;
       options.headers = this.headers;
-    }
-    /*    const formData = new FormData();
-    formData.append('Image', this.fileToUpload, this.fileToUpload.name)*/
+    } 
+      const formData = new FormData();
+    formData.append('Image', this.fileToUpload, this.fileToUpload.name)
+    formData.append('androidName', "rgrtfhcg") */
 
     if (!this.androidId) {
-      this.httpService.postAndroid(model, options).subscribe(() => {
+      this.httpService. postAndroid(model).subscribe(() => {
         this.router.navigate(["/androids"]);
       });
     } else {
@@ -93,7 +98,7 @@ export class AndroidDetailComponent implements OnInit {
     }
   }
 
-  handleFileInput(file: FileList) {
+  /*handleFileInput(file: FileList) {
     this.fileToUpload = file.item(0);
 
     var reader = new FileReader();
@@ -101,9 +106,8 @@ export class AndroidDetailComponent implements OnInit {
       this.imageUrl = event.target.result;
     };
     reader.readAsDataURL(this.fileToUpload);
-  }
-
-  prepareModel(): any {
+  } */
+ /* prepareModel(): any {
     const formControls = this.androidForm.controls;
     return {
       id: this.androidId,
@@ -113,5 +117,15 @@ export class AndroidDetailComponent implements OnInit {
       image: formControls.avatarImage.value,
       status: true
     };
+  } */
+
+  prepareSave(): any {
+    debugger;
+    let input = new FormData();
+    input.append('name', this.androidForm.get('name').value);
+    input.append('avatar', this.androidForm.get('avatar').value);
+    input.append('skills', this.androidForm.get('skills').value);
+    input.append('reliability', this.androidForm.get('reliability').value);
+    return input;
   }
 }
