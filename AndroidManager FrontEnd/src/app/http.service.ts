@@ -35,10 +35,6 @@ export class HttpService {
     return this.http.post(`${AppSettings.API_ENDPOINT}androids`, data);
   }
 
-  postImage(data: any) {
-    return this.http.post(`${AppSettings.API_ENDPOINT}androids/postImage`,data);
-  }
-
   getAndroidById(id: number) {
     return this.http.get(`${AppSettings.API_ENDPOINT}androids/${id.toString()}`);
   }

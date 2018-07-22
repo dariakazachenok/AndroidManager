@@ -25,6 +25,7 @@ export class AndroidsListComponent implements OnInit {
   jobId: number;
   modalReference: any;
   optionsModel: number[];
+  defaultImg: string = "../../../assets/img/default-image.jpg";
 
   jobSelectSettings: IMultiSelectSettings = {
     enableSearch: true,
@@ -42,12 +43,17 @@ export class AndroidsListComponent implements OnInit {
   }
 
   loadData(): void {
-    debugger;
     forkJoin([
       this.httpService.getAndroids(),
       this.httpService.getJobs(true)
     ]).subscribe((data: any) => {
       this.androids = data[0];
+      this.androids.forEach(
+        x =>
+          (x.avatarImage = x.avatarImage
+            ? "data:image/jpeg;base64," + x.avatarImage
+            : this.defaultImg)
+      );
       this.jobs = data[1];
       this.jobItems = this.jobs.map((opt: Job) => ({
         id: opt.id,

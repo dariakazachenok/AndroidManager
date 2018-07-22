@@ -1,5 +1,4 @@
-import { Component, OnInit, ElementRef, ViewChild } from "@angular/core";
-import { Headers, RequestOptions } from "@angular/http";
+import { Component, OnInit, ElementRef, ViewChild, ChangeDetectorRef } from "@angular/core";
 import { FormGroup, Validators, FormBuilder } from "@angular/forms";
 import { ActivatedRoute, Router } from "@angular/router";
 
@@ -17,9 +16,9 @@ export class AndroidDetailComponent implements OnInit {
   controls: FormGroup;
   androidId: number;
   status: boolean;
-  headers: Headers = new Headers();
-  imageUrl: string = "../../../assets/img/default-image.jpg";
+
   fileToUpload: File = null;
+  defaultImg: string = "../../../assets/img/default-image.jpg";
 
   @ViewChild("fileInput") fileInput: ElementRef;
 
@@ -27,11 +26,11 @@ export class AndroidDetailComponent implements OnInit {
     private httpService: HttpService,
     private route: ActivatedRoute,
     private router: Router,
-    private fb: FormBuilder
-  ) {}
+    private fb: FormBuilder,
+    private cd: ChangeDetectorRef
+  ) { }
 
   ngOnInit() {
-    debugger;
     this.createAndroidForm();
     this.androidId = this.route.snapshot.params["id"];
 
@@ -41,56 +40,56 @@ export class AndroidDetailComponent implements OnInit {
         this.populateForm();
       });
     }
+    this.setDefaultImage();
+  }
+
+  setDefaultImage() {
+    this.androidForm.controls.avatarImage.setValue(this.defaultImg);
   }
 
   createAndroidForm() {
-    debugger;
     this.androidForm = this.fb.group({
       androidName: ["", Validators.required],
-      avatarImage: [null, Validators.required],
+      avatarImage: ["", Validators.required],
       skills: ["", Validators.required],
-      reliability: [{ value: "10", disabled: true }, Validators.required],
+      reliability: [{ value: "10", disabled: true }, Validators.required]
     });
   }
 
   onFileChange(event) {
-    debugger;
-    if (event.target.files.length > 0) {
-      let file = event.target.files[0];
-      this.androidForm.get("avatarImage").setValue(file);
+    if (event.target.files && event.target.files.length) {
+      this.fileToUpload = event.target.files[0];
+      var reader = new FileReader();
+
+      const imageName = this.fileToUpload.name;
+      reader.readAsDataURL(this.fileToUpload);
+      reader.onload = () => {
+        this.androidForm.controls.avatarImage.setValue(reader.result);
+        // need to run CD since file load runs outside of zone
+        this.cd.markForCheck();
+      };
+
     }
   }
 
   populateForm() {
+    debugger;
     this.androidForm.patchValue({
       androidName: this.android.androidName,
-      avatarImage: this.android.avatarImage,
       skills: this.android.reliability,
-      reliability: this.android.reliability
+      reliability: this.android.reliability,
+      avatarImage: this.android.avatarImage ? 'data:image/jpeg;base64,' + this.android.avatarImage : this.defaultImg
     });
   }
 
   submitForm() {
-    debugger;
-    const model = this.prepareSave();
-
-    /* let options = new RequestOptions();
-    if (this.fileToUpload) {
-      let headers = new Headers();
-      headers.set("Content-Type", "application/octet-stream");
-      headers.set("Upload-Content-Type", this.fileToUpload.type);
-
-      this.headers = headers;
-      options.headers = this.headers;
-    } 
-      const formData = new FormData();
-    formData.append('Image', this.fileToUpload, this.fileToUpload.name)
-    formData.append('androidName', "rgrtfhcg") */
+    const model = this.prepareModel();
 
     if (!this.androidId) {
-      this.httpService. postAndroid(model).subscribe(() => {
-        this.router.navigate(["/androids"]);
-      });
+      this.httpService.postAndroid(model)
+        .subscribe(() => {
+          this.router.navigate(["/androids"]);
+        });
     } else {
       this.httpService.putAndroid(this.androidId, model).subscribe(() => {
         this.router.navigate(["/androids"]);
@@ -98,34 +97,15 @@ export class AndroidDetailComponent implements OnInit {
     }
   }
 
-  /*handleFileInput(file: FileList) {
-    this.fileToUpload = file.item(0);
-
-    var reader = new FileReader();
-    reader.onload = (event: any) => {
-      this.imageUrl = event.target.result;
-    };
-    reader.readAsDataURL(this.fileToUpload);
-  } */
- /* prepareModel(): any {
+  prepareModel(): any {
     const formControls = this.androidForm.controls;
     return {
       id: this.androidId,
       androidName: formControls.androidName.value,
       skills: formControls.skills.value,
       reliability: formControls.reliability.value,
-      image: formControls.avatarImage.value,
+      avatarImage: formControls.avatarImage.value === this.defaultImg ? null : formControls.avatarImage.value,
       status: true
     };
-  } */
-
-  prepareSave(): any {
-    debugger;
-    let input = new FormData();
-    input.append('name', this.androidForm.get('name').value);
-    input.append('avatar', this.androidForm.get('avatar').value);
-    input.append('skills', this.androidForm.get('skills').value);
-    input.append('reliability', this.androidForm.get('reliability').value);
-    return input;
   }
 }

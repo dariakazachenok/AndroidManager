@@ -1,12 +1,9 @@
 ﻿using AndroidManager.Web.Models;
 using AndroidManager.WebApi;
 using AutoMapper;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 
 namespace AndroidManager.Web.Controllers
 {
@@ -16,6 +13,7 @@ namespace AndroidManager.Web.Controllers
         private readonly AndroidService androidService;
         private readonly JobService jobService;
         private readonly IMapper mapper;
+        private readonly DatabaseContext databaseContex;
 
         public AndroidsController(AndroidService androidService, JobService jobService, IMapper mapper)
         {
@@ -33,52 +31,28 @@ namespace AndroidManager.Web.Controllers
             return Ok(dtoModels);
         }
 
-       /* [HttpPost]
-        [Route("postImage")]
-        public ActionResult PostImage()
-        {
-            string imageName = null;
-            var formRequest = HttpContext.Request.Form;
-            var postedFile = formRequest.Files["Image"];
-
-            imageName = new string(Path.GetFileNameWithoutExtension(postedFile.FileName).Take(10).ToArray()).Replace(" ", "-");
-            imageName = imageName + DateTime.Now.ToString("yymmssfff") + Path.GetExtension(postedFile.FileName);
-
-
-            var path = Path.Combine("Image/", imageName);
-
-            using (var stream = new FileStream(path, FileMode.Create))
-            {
-                postedFile.CopyToAsync(stream);
-            }
-
-            return Ok();
-        } */
-
         [HttpPost]
         public ActionResult Create([FromBody] AndroidBindModel androidBindModel)
         {
             if (!ModelState.IsValid)
                 return BadRequest();
 
-           /* string imageName = null;
-            var formRequest = HttpContext.Request.Form;
-            var postedFile = formRequest.Files["Image"];
-
-            imageName = new string(Path.GetFileNameWithoutExtension(postedFile.FileName).Take(10).ToArray()).Replace(" ", "-");
-            imageName = imageName + DateTime.Now.ToString("yymmssfff") + Path.GetExtension(postedFile.FileName);
-
-            var path = Path.Combine("Image/", imageName);
-
-            using (var stream = new FileStream(path, FileMode.Create))
-            {
-                postedFile.CopyToAsync(stream);
-            } */
 
             var android = mapper.Map<Android>(androidBindModel);
-            /*android.AvatarImage = imageName;*/
+
+            android.AvatarImage = androidBindModel.AvatarImage != null ?
+                GetByteArrayFromString(androidBindModel.AvatarImage) :
+                null;
+
             androidService.Create(android);
+
             return Ok();
+        }
+
+        private byte[] GetByteArrayFromString(string value)
+        {
+            var substring = value.Substring(value.IndexOf(',') + 1);
+            return Convert.FromBase64String(substring);
         }
 
         [HttpPost]
@@ -129,6 +103,9 @@ namespace AndroidManager.Web.Controllers
 
             var android = androidService.GetAndroidById(id);
             mapper.Map(androidBindModel, android);
+            android.AvatarImage = androidBindModel.AvatarImage != null ?
+              GetByteArrayFromString(androidBindModel.AvatarImage) :
+              null;
 
             androidService.Edit(android);
 

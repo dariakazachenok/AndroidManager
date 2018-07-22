@@ -1,9 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore.Metadata;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace AndroidManagerServices.Migrations
 {
-    public partial class JobAndroid : Migration
+    public partial class initialDB : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -14,7 +15,7 @@ namespace AndroidManagerServices.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     AndroidName = table.Column<string>(nullable: true),
-                    AvatarImage = table.Column<string>(nullable: true),
+                    AvatarImage = table.Column<byte[]>(nullable: true),
                     Skills = table.Column<string>(nullable: true),
                     Reliability = table.Column<int>(nullable: false),
                     Status = table.Column<bool>(nullable: false)
@@ -37,6 +38,22 @@ namespace AndroidManagerServices.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Jobs", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Operators",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    FirstName = table.Column<string>(nullable: true),
+                    LastName = table.Column<string>(nullable: true),
+                    Email = table.Column<string>(nullable: true),
+                    Password = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Operators", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -73,6 +90,9 @@ namespace AndroidManagerServices.Migrations
         {
             migrationBuilder.DropTable(
                 name: "AndroidJob");
+
+            migrationBuilder.DropTable(
+                name: "Operators");
 
             migrationBuilder.DropTable(
                 name: "Androids");

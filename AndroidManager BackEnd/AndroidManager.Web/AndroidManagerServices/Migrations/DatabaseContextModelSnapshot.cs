@@ -27,7 +27,7 @@ namespace AndroidManagerServices.Migrations
 
                     b.Property<string>("AndroidName");
 
-                    b.Property<string>("AvatarImage");
+                    b.Property<byte[]>("AvatarImage");
 
                     b.Property<int>("Reliability");
 

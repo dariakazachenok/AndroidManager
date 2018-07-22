@@ -7,6 +7,7 @@
         public string Skills { get; set; }
         public int Reliability { get; set; }
         public bool Status { get; set; }
+        public string AvatarImage { get; set; }
         public string CompletedJobs { get; set; }
     }
 }
