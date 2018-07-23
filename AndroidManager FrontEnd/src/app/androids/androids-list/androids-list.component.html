@@ -6,7 +6,7 @@
 
                 <tbody>
                     <tr>
-                        <th>Android name</th>
+                        <th>Name</th>
                         <th>Avatar</th>
                         <th>Skills</th>
                         <th>Reliability</th>
@@ -43,22 +43,30 @@
                                         <span aria-hidden="true">×</span>
                                     </button>
                                 </div>
+
                                 <div class="modal-body">
-                                    <ss-multiselect-dropdown [options]="jobItems" [(ngModel)]="optionsModel" (ngModelChange)="onChangeJob($event)" [settings]="jobSelectSettings"></ss-multiselect-dropdown>
+                                    <div *ngIf="isInvalidCount">You desdfs</div>
+                                    <ss-multiselect-dropdown [options]="jobItems" [(ngModel)]="optionsModel" (ngModelChange)="onChangeJob(optionsModel, android.reliability)"
+                                        [settings]="jobSelectSettings"></ss-multiselect-dropdown>
+
                                 </div>
 
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-success" (click)="save(android.id)">
+
+                                    <button [disabled]="isInvalidCount" type="button" class="btn btn-success" (click)="assignJobs(android.id)">
                                         Save
                                     </button>
+
                                     <button type="button" class="btn btn-light" (click)="c('Close click')">
                                         Close
                                     </button>
                                 </div>
                             </ng-template>
-                            <button class="btn btn-outline-primary mb-2 mr-2" (click)="openDialog(content)">
-                                Assign Jobs
-                            </button>
+                            <div *ngIf="android.reliability">
+                                <button class="btn btn-outline-primary mb-2 mr-2" (click)="openDialog(content)">
+                                    Assign Jobs
+                                </button>
+                            </div>
 
                         </td>
                     </tr>

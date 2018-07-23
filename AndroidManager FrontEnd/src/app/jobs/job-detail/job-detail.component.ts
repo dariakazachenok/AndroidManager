@@ -52,8 +52,15 @@ export class JobDetailComponent implements OnInit {
 
   createJobForm() {
     this.jobForm = new FormGroup({
-      jobName: new FormControl("", Validators.required),
-      description: new FormControl("", Validators.required),
+      jobName: new FormControl("", [
+        Validators.required,
+        Validators.minLength(2),
+        Validators.maxLength(16)
+      ]),
+      description: new FormControl("", [
+        Validators.required,
+        Validators.maxLength(255)
+      ]),
       complexitylevel: new FormControl(
         this.complexityLevels[3],
         Validators.required

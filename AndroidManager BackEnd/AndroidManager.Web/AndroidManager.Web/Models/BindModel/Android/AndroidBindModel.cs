@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-
-namespace AndroidManager.WebApi
+﻿namespace AndroidManager.WebApi
 {
     public class AndroidBindModel
     {

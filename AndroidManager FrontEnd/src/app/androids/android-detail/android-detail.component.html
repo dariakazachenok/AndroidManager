@@ -6,7 +6,7 @@
 
         <form [formGroup]="androidForm">
             <div class="form-group">
-                <label>Android name</label>
+                <label>Name</label>
                 <input
                     class="form-control"
                     name="androidName"
@@ -24,7 +24,6 @@
                 <label>Avatar</label>
                 <div class="row">
                     <img
-                        style="width: 100px; height: 100px;"
                         class="border"
                         src="{{ androidForm.controls.avatarImage.value }}"
                     >

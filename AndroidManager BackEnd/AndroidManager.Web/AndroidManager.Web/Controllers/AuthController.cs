@@ -10,6 +10,7 @@ using System.Text;
 namespace AndroidManager.Web.Controllers
 {
     [Route("api/[controller]")]
+    [ApiController]
     public class AuthController : Controller
     {
         private readonly OperatorService operatorService;
@@ -53,10 +54,10 @@ namespace AndroidManager.Web.Controllers
         [HttpPost("register")]
         public ActionResult Register([FromBody] OperatorBindModel model)
         {
-            if (!ModelState.IsValid)
-                return BadRequest();
+            /* if (!ModelState.IsValid)
+                 return BadRequest(); */
 
-            var oper= mapper.Map<Operator>(model);
+            var oper = mapper.Map<Operator>(model);
             operatorService.Create(oper);
             return Ok();
         }

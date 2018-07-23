@@ -55,10 +55,17 @@ export class AndroidDetailComponent implements OnInit {
 
   createAndroidForm() {
     this.androidForm = this.fb.group({
-      androidName: ["", Validators.required],
-      avatarImage: ["", Validators.required],
+      androidName: [
+        "",
+        Validators.compose([
+          Validators.required,
+          Validators.minLength(5),
+          Validators.maxLength(24)
+        ])
+      ],
+      avatarImage: [""],
       skills: ["", Validators.required],
-      reliability: [{ value: "10", disabled: true }, Validators.required]
+      reliability: [{ value: "10", disabled: true }]
     });
   }
 
@@ -78,10 +85,9 @@ export class AndroidDetailComponent implements OnInit {
   }
 
   populateForm() {
-    debugger;
     this.androidForm.patchValue({
       androidName: this.android.androidName,
-      skills: this.android.reliability,
+      skills: this.android.skills,
       reliability: this.android.reliability,
       avatarImage: this.android.avatarImage
         ? "data:image/jpeg;base64," + this.android.avatarImage

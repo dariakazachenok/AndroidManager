@@ -26,6 +26,7 @@ export class AndroidsListComponent implements OnInit {
   modalReference: any;
   optionsModel: number[];
   defaultImg: string = "../../../assets/img/default-image.jpg";
+  isInvalidCount = false;
 
   jobSelectSettings: IMultiSelectSettings = {
     enableSearch: true,
@@ -36,7 +37,7 @@ export class AndroidsListComponent implements OnInit {
     private httpService: HttpService,
     private router: Router,
     private modalService: NgbModal
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.loadData();
@@ -78,10 +79,16 @@ export class AndroidsListComponent implements OnInit {
     }
   }
 
-  onChangeJob(event: Event) {}
+  onChangeJob(event: Array<number>, res: number) {
+    debugger;
+    event.length > res ?
+      this.isInvalidCount = true :
+      this.isInvalidCount = false
+  }
 
-  save(androidId: number) {
-    if (this.optionsModel.length === 0) {
+  assignJobs(androidId: number) {
+    if (!this.optionsModel || this.optionsModel.length === 0) {
+      this.modalReference.close();
       return;
     }
 
@@ -94,4 +101,8 @@ export class AndroidsListComponent implements OnInit {
       this.modalReference.close();
     });
   }
+
+  /*uploader.filters.push(function (item) {
+    return item.file.size <= 1048576; // 1024 * 1024 | Math.pow(2,20); | 0x100000
+});*/
 }

@@ -15,7 +15,7 @@ export class JobsListComponent implements OnInit {
   constructor(private httpService: HttpService, private router: Router) {}
 
   ngOnInit() {
-    this.httpService.getJobs().subscribe((jobs: any) => (this.jobs = jobs));
+    this.httpService.getJobs().subscribe((jobs) => (this.jobs = jobs));
   }
 
   editJob(jobId: number) {

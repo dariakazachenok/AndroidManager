@@ -1,6 +1,7 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { AppSettings } from "./appSettings";
+import { Job } from "./models/job.model";
 
 
 @Injectable()
@@ -8,7 +9,7 @@ export class HttpService {
   constructor(private http: HttpClient) {}
 
   getJobs(incompleted:boolean = false) {
-    return this.http.get(`${AppSettings.API_ENDPOINT}jobs?incompleted=${incompleted}`);
+    return this.http.get<Array<Job>>(`${AppSettings.API_ENDPOINT}jobs?incompleted=${incompleted}`);
   }
 
   postJob(data: any) {
