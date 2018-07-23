@@ -1,5 +1,6 @@
 ﻿using AndroidManager.Web.Models;
 using AndroidManager.WebApi;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using System;
@@ -11,41 +12,53 @@ namespace AndroidManager.Web.Controllers
     [Route("api/[controller]")]
     public class AuthController : Controller
     {
-        private readonly UserService _userService;
-        private readonly JwtConfigurationModel _jwtConfig;
+        private readonly OperatorService operatorService;
+        private readonly JwtConfigurationModel jwtConfig;
+        private readonly IMapper mapper;
 
-        public AuthController(UserService userService, JwtConfigurationModel jwtConfig)
+        public AuthController(OperatorService operatorService, JwtConfigurationModel jwtConfig, IMapper mapper)
         {
-            _userService = userService;
-            _jwtConfig = jwtConfig;
+            this.operatorService = operatorService;
+            this.jwtConfig = jwtConfig;
+            this.mapper = mapper;
         }
 
         [HttpPost("token")]
         public ActionResult Signin([FromBody] OperatorBindModel model)
         {
-            var user = _userService.GetByCredentials(model.Email, model.Password);
+            var oper = operatorService.GetByCredentials(model.Email, model.Password);
 
-            if (user == null) return NotFound();
+            if (oper == null) return NotFound();
 
-            var tokenString = BuildToken(user);
+            var tokenString = BuildToken(oper);
 
-            return Ok(new { Token = tokenString, user.FirstName });
+            return Ok(new { Token = tokenString, oper.FirstName });
         }
 
         private string BuildToken(Operator currentOperator)
         {
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtConfig.Key));
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtConfig.Key));
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
             var token = new JwtSecurityToken(
-                _jwtConfig.Issuer,
-                _jwtConfig.Audience,
+                jwtConfig.Issuer,
+                jwtConfig.Audience,
                 null,
-                expires: DateTime.UtcNow.AddMinutes(_jwtConfig.ExpireTime),
+                expires: DateTime.UtcNow.AddMinutes(jwtConfig.ExpireTime),
                 signingCredentials: creds);
 
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
+
+        [HttpPost("register")]
+        public ActionResult Register([FromBody] OperatorBindModel model)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest();
+
+            var oper= mapper.Map<Operator>(model);
+            operatorService.Create(oper);
+            return Ok();
+        }
     }
 }
-

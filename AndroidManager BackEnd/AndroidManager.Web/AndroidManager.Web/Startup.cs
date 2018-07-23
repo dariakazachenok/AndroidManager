@@ -33,7 +33,7 @@ namespace AndroidManager.Web
 
             services.AddTransient<JobService, JobService>();
             services.AddTransient<AndroidService, AndroidService>();
-            services.AddTransient<UserService, UserService>();
+            services.AddTransient<OperatorService, OperatorService>();
 
             services.AddCors();
 

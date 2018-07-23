@@ -2,11 +2,11 @@
 
 namespace AndroidManager.Web
 {
-    public class UserService
+    public class OperatorService
     {
         private readonly DatabaseContext databaseContex;
 
-        public UserService(DatabaseContext databaseContex)
+        public OperatorService(DatabaseContext databaseContex)
         {
             this.databaseContex = databaseContex;
         }
@@ -16,6 +16,12 @@ namespace AndroidManager.Web
             return databaseContex
                                  .Operators
                                  .FirstOrDefault(x => x.Email == email && x.Password == password);
+        }
+
+        public void Create(Operator oper)
+        {
+            databaseContex.Operators.Add(oper);
+            databaseContex.SaveChanges();
         }
     }
 }

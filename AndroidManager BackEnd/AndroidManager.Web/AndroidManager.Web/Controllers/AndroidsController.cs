@@ -13,7 +13,6 @@ namespace AndroidManager.Web.Controllers
         private readonly AndroidService androidService;
         private readonly JobService jobService;
         private readonly IMapper mapper;
-        private readonly DatabaseContext databaseContex;
 
         public AndroidsController(AndroidService androidService, JobService jobService, IMapper mapper)
         {
@@ -36,7 +35,6 @@ namespace AndroidManager.Web.Controllers
         {
             if (!ModelState.IsValid)
                 return BadRequest();
-
 
             var android = mapper.Map<Android>(androidBindModel);
 

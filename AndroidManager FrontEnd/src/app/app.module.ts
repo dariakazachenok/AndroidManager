@@ -13,7 +13,6 @@ import { AuthenticationService } from "./authentication/authentication.service";
 import { AuthGuard } from "./guards/auth.guard";
 import { AppRoutingModule } from "./app-routing.module";
 
-
 @NgModule({
   imports: [
     BrowserModule,
@@ -26,15 +25,8 @@ import { AppRoutingModule } from "./app-routing.module";
     CommonModule,
     AppRoutingModule
   ],
-  declarations: [
-    AppRoutingModule.components,
-    AppComponent
-  ],
-  providers: [
-    AlertService,
-    AuthenticationService,
-    AuthGuard,
-  ],
+  declarations: [AppRoutingModule.components, AppComponent],
+  providers: [AlertService, AuthenticationService, AuthGuard],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}

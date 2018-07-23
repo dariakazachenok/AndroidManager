@@ -7,10 +7,10 @@ import { LoginModel } from "../models/login.model";
   styleUrls: ["./home.component.css"]
 })
 export class HomeComponent implements OnInit {
-  currentUser: LoginModel;
+  currentOperator: LoginModel;
 
   constructor() {
-    this.currentUser = JSON.parse(localStorage.getItem("currentUser"));
+    this.currentOperator = JSON.parse(localStorage.getItem("currentOperator"));
   }
 
   ngOnInit() {}

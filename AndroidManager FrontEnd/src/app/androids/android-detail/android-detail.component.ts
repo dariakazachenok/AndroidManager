@@ -1,4 +1,10 @@
-import { Component, OnInit, ElementRef, ViewChild, ChangeDetectorRef } from "@angular/core";
+import {
+  Component,
+  OnInit,
+  ElementRef,
+  ViewChild,
+  ChangeDetectorRef
+} from "@angular/core";
 import { FormGroup, Validators, FormBuilder } from "@angular/forms";
 import { ActivatedRoute, Router } from "@angular/router";
 
@@ -28,7 +34,7 @@ export class AndroidDetailComponent implements OnInit {
     private router: Router,
     private fb: FormBuilder,
     private cd: ChangeDetectorRef
-  ) { }
+  ) {}
 
   ngOnInit() {
     this.createAndroidForm();
@@ -68,7 +74,6 @@ export class AndroidDetailComponent implements OnInit {
         // need to run CD since file load runs outside of zone
         this.cd.markForCheck();
       };
-
     }
   }
 
@@ -78,7 +83,9 @@ export class AndroidDetailComponent implements OnInit {
       androidName: this.android.androidName,
       skills: this.android.reliability,
       reliability: this.android.reliability,
-      avatarImage: this.android.avatarImage ? 'data:image/jpeg;base64,' + this.android.avatarImage : this.defaultImg
+      avatarImage: this.android.avatarImage
+        ? "data:image/jpeg;base64," + this.android.avatarImage
+        : this.defaultImg
     });
   }
 
@@ -86,10 +93,9 @@ export class AndroidDetailComponent implements OnInit {
     const model = this.prepareModel();
 
     if (!this.androidId) {
-      this.httpService.postAndroid(model)
-        .subscribe(() => {
-          this.router.navigate(["/androids"]);
-        });
+      this.httpService.postAndroid(model).subscribe(() => {
+        this.router.navigate(["/androids"]);
+      });
     } else {
       this.httpService.putAndroid(this.androidId, model).subscribe(() => {
         this.router.navigate(["/androids"]);
@@ -104,7 +110,10 @@ export class AndroidDetailComponent implements OnInit {
       androidName: formControls.androidName.value,
       skills: formControls.skills.value,
       reliability: formControls.reliability.value,
-      avatarImage: formControls.avatarImage.value === this.defaultImg ? null : formControls.avatarImage.value,
+      avatarImage:
+        formControls.avatarImage.value === this.defaultImg
+          ? null
+          : formControls.avatarImage.value,
       status: true
     };
   }
