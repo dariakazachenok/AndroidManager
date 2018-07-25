@@ -63,7 +63,7 @@ export class AndroidDetailComponent implements OnInit {
           Validators.maxLength(24)
         ])
       ],
-      avatarImage: ["",  Validators.required],
+      avatarImage: ["", Validators.required],
       skills: ["", Validators.required],
       reliability: [{ value: "10", disabled: true }]
     });
@@ -78,7 +78,6 @@ export class AndroidDetailComponent implements OnInit {
       reader.readAsDataURL(this.fileToUpload);
       reader.onload = () => {
         this.androidForm.controls.avatarImage.setValue(reader.result);
-        // need to run CD since file load runs outside of zone
         this.cd.markForCheck();
       };
     }

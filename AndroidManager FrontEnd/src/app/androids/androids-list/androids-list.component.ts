@@ -105,8 +105,4 @@ export class AndroidsListComponent implements OnInit {
     this.optionsModel = [];
     this.modalReference.close();
   }
-
-  /*uploader.filters.push(function (item) {
-    return item.file.size <= 1048576; // 1024 * 1024 | Math.pow(2,20); | 0x100000
-});*/
 }

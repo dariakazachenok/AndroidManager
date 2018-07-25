@@ -32,5 +32,3 @@ export class AuthenticationService {
     return this.http.post(`${AppSettings.API_ENDPOINT}auth/register`, operator);
   }
 }
-
-
