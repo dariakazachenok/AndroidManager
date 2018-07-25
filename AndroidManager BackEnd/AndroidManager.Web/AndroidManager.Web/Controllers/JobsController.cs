@@ -6,6 +6,7 @@ using System.Collections.Generic;
 namespace AndroidManager.Web.Controllers
 {
     [Route("api/[controller]")]
+    [ApiController]
     public class JobsController : Controller
     {
         private readonly JobService jobService;
@@ -29,9 +30,6 @@ namespace AndroidManager.Web.Controllers
         [HttpPost]
         public ActionResult Create([FromBody] JobBindModel jobBindModel)
         {
-            if (!ModelState.IsValid)
-                return BadRequest();
-
             var job = mapper.Map<Job>(jobBindModel);
             jobService.Create(job);
             return Ok();
@@ -50,9 +48,6 @@ namespace AndroidManager.Web.Controllers
         [HttpPut("{id}")]
         public ActionResult Update(int id, [FromBody] JobBindModel jobBindModel)
         {
-            if (!ModelState.IsValid)
-                return BadRequest();
-
             var job = jobService.GetJobById(id);
             mapper.Map(jobBindModel, job);
 

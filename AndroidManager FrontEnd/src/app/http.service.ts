@@ -48,7 +48,7 @@ export class HttpService {
     return this.http.delete(`${AppSettings.API_ENDPOINT}androids/${id.toString()}`);
   }
 
-  assignJob(data: any) {
+  assignJobs(data: any) {
     return this.http.post(`${AppSettings.API_ENDPOINT}androids/assignJobs`, data);
   }
 }

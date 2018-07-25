@@ -37,7 +37,7 @@ export class AndroidsListComponent implements OnInit {
     private httpService: HttpService,
     private router: Router,
     private modalService: NgbModal
-  ) { }
+  ) {}
 
   ngOnInit() {
     this.loadData();
@@ -79,11 +79,10 @@ export class AndroidsListComponent implements OnInit {
     }
   }
 
-  onChangeJob(event: Array<number>, res: number) {
-    debugger;
-    event.length > res ?
-      this.isInvalidCount = true :
-      this.isInvalidCount = false
+  onChangeJob(event: Array<number>, reliability: number) {
+    event.length > reliability
+      ? (this.isInvalidCount = true)
+      : (this.isInvalidCount = false);
   }
 
   assignJobs(androidId: number) {
@@ -95,11 +94,16 @@ export class AndroidsListComponent implements OnInit {
     let jobIds = Array<number>();
     this.optionsModel.forEach(x => jobIds.push(x));
     const model = { jobIds: jobIds, androidId: androidId };
-    this.httpService.assignJob(model).subscribe(() => {
+    this.httpService.assignJobs(model).subscribe(() => {
       this.loadData();
       this.optionsModel = [];
       this.modalReference.close();
     });
+  }
+
+  closeDialog() {
+    this.optionsModel = [];
+    this.modalReference.close();
   }
 
   /*uploader.filters.push(function (item) {

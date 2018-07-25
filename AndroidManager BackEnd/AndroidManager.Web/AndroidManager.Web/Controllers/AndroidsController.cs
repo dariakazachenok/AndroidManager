@@ -8,6 +8,7 @@ using System.Collections.Generic;
 namespace AndroidManager.Web.Controllers
 {
     [Route("api/[controller]")]
+    [ApiController]
     public class AndroidsController : Controller
     {
         private readonly AndroidService androidService;
@@ -33,9 +34,6 @@ namespace AndroidManager.Web.Controllers
         [HttpPost]
         public ActionResult Create([FromBody] AndroidBindModel androidBindModel)
         {
-            if (!ModelState.IsValid)
-                return BadRequest();
-
             var android = mapper.Map<Android>(androidBindModel);
 
             android.AvatarImage = androidBindModel.AvatarImage != null ?
@@ -96,9 +94,6 @@ namespace AndroidManager.Web.Controllers
         [HttpPut("{id}")]
         public ActionResult Update(int id, [FromBody] AndroidBindModel androidBindModel)
         {
-            if (!ModelState.IsValid)
-                return BadRequest();
-
             var android = androidService.GetAndroidById(id);
             mapper.Map(androidBindModel, android);
             android.AvatarImage = androidBindModel.AvatarImage != null ?

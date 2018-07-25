@@ -63,7 +63,7 @@ export class AndroidDetailComponent implements OnInit {
           Validators.maxLength(24)
         ])
       ],
-      avatarImage: [""],
+      avatarImage: ["",  Validators.required],
       skills: ["", Validators.required],
       reliability: [{ value: "10", disabled: true }]
     });

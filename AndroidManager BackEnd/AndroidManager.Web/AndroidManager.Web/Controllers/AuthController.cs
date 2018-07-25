@@ -25,7 +25,7 @@ namespace AndroidManager.Web.Controllers
         }
 
         [HttpPost("token")]
-        public ActionResult Signin([FromBody] OperatorBindModel model)
+        public ActionResult Signin([FromBody] LoginBindModel model)
         {
             var oper = operatorService.GetByCredentials(model.Email, model.Password);
 
@@ -54,9 +54,6 @@ namespace AndroidManager.Web.Controllers
         [HttpPost("register")]
         public ActionResult Register([FromBody] OperatorBindModel model)
         {
-            /* if (!ModelState.IsValid)
-                 return BadRequest(); */
-
             var oper = mapper.Map<Operator>(model);
             operatorService.Create(oper);
             return Ok();

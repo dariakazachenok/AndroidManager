@@ -25,7 +25,7 @@ const routes: Routes = [
   { path: "jobs/edit/:id", component: JobDetailComponent },
   { path: "login", component: LoginComponent },
   { path: "register", component: RegisterComponent },
-  { path: "**", component: NotFoundComponent },
+  { path: "**", component: NotFoundComponent }
 ];
 
 @NgModule({
