@@ -78,7 +78,6 @@ export class AndroidDetailComponent implements OnInit {
       reader.readAsDataURL(this.fileToUpload);
       reader.onload = () => {
         this.androidForm.controls.avatarImage.setValue(reader.result);
-        this.cd.markForCheck();
       };
     }
   }

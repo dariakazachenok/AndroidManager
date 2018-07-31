@@ -40,8 +40,6 @@ namespace AndroidManager.Web
             services.AddMvc()
                 .AddFluentValidation();
 
-            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-
             services.Configure<FormOptions>(x =>
             {
                 x.ValueLengthLimit = int.MaxValue;

@@ -14,7 +14,15 @@ namespace AndroidManager.Web.Automapper
                String.Join(Environment.NewLine, z.AndroidJobs.ToList().Select(x => x.Job.JobName).ToList())))
                .ForMember(x => x.AvatarImage, y => y.MapFrom(z => Convert.ToBase64String(z.AvatarImage)));
 
-            CreateMap<AndroidBindModel, Android>();
+            CreateMap<AndroidBindModel, Android>()
+                .ForMember(x => x.AvatarImage, y => y.MapFrom(z => z.AvatarImage != null ? GetByteArrayFromString(z.AvatarImage) :
+                null));
+        }
+
+        private byte[] GetByteArrayFromString(string value)
+        {
+            var substring = value.Substring(value.IndexOf(',') + 1);
+            return Convert.FromBase64String(substring);
         }
     }
 }

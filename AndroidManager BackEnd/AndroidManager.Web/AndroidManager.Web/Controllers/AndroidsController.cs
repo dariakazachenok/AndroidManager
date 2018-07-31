@@ -36,19 +36,9 @@ namespace AndroidManager.Web.Controllers
         {
             var android = mapper.Map<Android>(androidBindModel);
 
-            android.AvatarImage = androidBindModel.AvatarImage != null ?
-                GetByteArrayFromString(androidBindModel.AvatarImage) :
-                null;
-
             androidService.Create(android);
 
             return Ok();
-        }
-
-        private byte[] GetByteArrayFromString(string value)
-        {
-            var substring = value.Substring(value.IndexOf(',') + 1);
-            return Convert.FromBase64String(substring);
         }
 
         [HttpPost]
@@ -56,7 +46,7 @@ namespace AndroidManager.Web.Controllers
         public ActionResult AssignJobs([FromBody] AssignJobsModel assignJobsModel)
         {
             var androidId = assignJobsModel.AndroidId;
-            var android = androidService.GetAndroidById(assignJobsModel.AndroidId);
+            var android = androidService.GetAndroidById(androidId);
             var jobs = jobService.GetJobsByIds(assignJobsModel.JobIds);
 
             android.Reliability = android.Reliability - jobs.Count;
@@ -96,10 +86,7 @@ namespace AndroidManager.Web.Controllers
         {
             var android = androidService.GetAndroidById(id);
             mapper.Map(androidBindModel, android);
-            android.AvatarImage = androidBindModel.AvatarImage != null ?
-              GetByteArrayFromString(androidBindModel.AvatarImage) :
-              null;
-
+        
             androidService.Edit(android);
 
             return Ok();

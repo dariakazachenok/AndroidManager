@@ -18,7 +18,7 @@ export class JobsListComponent implements OnInit {
     this.httpService.getJobs().subscribe((jobs) => (this.jobs = jobs));
   }
 
-  editJob(jobId: number) {
+  editJob(jobId: number) : void {
     this.router.navigate(["/jobs/edit/", jobId]);
   }
 

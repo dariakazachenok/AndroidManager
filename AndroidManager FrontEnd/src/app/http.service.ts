@@ -8,8 +8,10 @@ import { Job } from "./models/job.model";
 export class HttpService {
   constructor(private http: HttpClient) {}
 
-  getJobs(incompleted:boolean = false) {
-    return this.http.get<Array<Job>>(`${AppSettings.API_ENDPOINT}jobs?incompleted=${incompleted}`);
+  getJobs(incompleted: boolean = false) {
+    return this.http.get<Array<Job>>(
+      `${AppSettings.API_ENDPOINT}jobs?incompleted=${incompleted}`
+    );
   }
 
   postJob(data: any) {
@@ -21,7 +23,10 @@ export class HttpService {
   }
 
   putJob(id: number, data?: any) {
-    return this.http.put(`${AppSettings.API_ENDPOINT}jobs/${id.toString()}`, data);
+    return this.http.put(
+      `${AppSettings.API_ENDPOINT}jobs/${id.toString()}`,
+      data
+    );
   }
 
   deleteJob(id: number) {
@@ -37,18 +42,28 @@ export class HttpService {
   }
 
   getAndroidById(id: number) {
-    return this.http.get(`${AppSettings.API_ENDPOINT}androids/${id.toString()}`);
+    return this.http.get(
+      `${AppSettings.API_ENDPOINT}androids/${id.toString()}`
+    );
   }
 
   putAndroid(id: number, data?: any) {
-    return this.http.put(`${AppSettings.API_ENDPOINT}androids/${id.toString()}`, data);
+    return this.http.put(
+      `${AppSettings.API_ENDPOINT}androids/${id.toString()}`,
+      data
+    );
   }
 
   deleteAndroid(id: number) {
-    return this.http.delete(`${AppSettings.API_ENDPOINT}androids/${id.toString()}`);
+    return this.http.delete(
+      `${AppSettings.API_ENDPOINT}androids/${id.toString()}`
+    );
   }
 
   assignJobs(data: any) {
-    return this.http.post(`${AppSettings.API_ENDPOINT}androids/assignJobs`, data);
+    return this.http.post(
+      `${AppSettings.API_ENDPOINT}androids/assignJobs`,
+      data
+    );
   }
 }
